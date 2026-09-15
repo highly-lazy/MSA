@@ -30,7 +30,7 @@ export default function StatesCoverage() {
           path.classList.add(notServed.has(cls) ? 'coverage-map__state--muted' : 'coverage-map__state--served')
         })
 
-        // Place a marker at the company HQ (Warminster, PA) using the
+        // Place a marker at the company HQ (Jamison, PA) using the
         // rendered path's own bounding box — no manual coordinate guessing.
         const pa = svg.querySelector('g.state > path.pa')
         if (pa) {
@@ -84,7 +84,7 @@ export default function StatesCoverage() {
           <p className="section__lede" style={{ margin: '0 auto' }}>
             MSA Transportation runs interstate freight across all 48
             contiguous states under our own MC &amp; USDOT authority —
-            dispatched out of our Warminster, PA home base.
+            dispatched out of our Jamison, PA home base.
           </p>
         </Reveal>
 
@@ -95,7 +95,7 @@ export default function StatesCoverage() {
               <div className="coverage-map__marker" style={{ left: `${marker.x}%`, top: `${marker.y}%` }}>
                 <span className="coverage-map__pulse" />
                 <span className="coverage-map__pin" />
-                <span className="coverage-map__marker-label">MSA HQ &middot; Warminster, PA</span>
+                <span className="coverage-map__marker-label">MSA HQ &middot; Jamison, PA</span>
               </div>
             )}
             <div

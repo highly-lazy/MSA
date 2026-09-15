@@ -35,6 +35,19 @@ export default function Header() {
           </span>
         </Link>
 
+        <nav className="main-nav-inline">
+          {NAV_LINKS.map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              end={link.to === '/'}
+              className={({ isActive }) => (isActive ? 'is-active' : undefined)}
+            >
+              {link.label}
+            </NavLink>
+          ))}
+        </nav>
+
         <div className="site-header__actions">
           <Link to="/services" className="btn btn--primary nav-cta">Get a Quote</Link>
           <button

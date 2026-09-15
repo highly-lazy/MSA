@@ -284,9 +284,37 @@ p { margin: 0 0 1em; color: var(--steel); max-width: 62ch; }
 
 .nav-cta { padding: 11px 20px; font-size: 0.98rem; }
 
-/* Menu trigger (Vitesse-style: hamburger + "Menu" label, one pattern at every breakpoint) */
-.menu-trigger {
+/* Inline nav links, visible directly in the header on desktop */
+.main-nav-inline {
   display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.main-nav-inline a {
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: var(--steel);
+  position: relative;
+  padding: 6px 0;
+}
+.main-nav-inline a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -2px;
+  height: 2px;
+  background: var(--blue);
+  transition: right 0.25s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.main-nav-inline a:hover { color: var(--blue); }
+.main-nav-inline a:hover::after { right: 0; }
+.main-nav-inline a.is-active { color: var(--blue); }
+.main-nav-inline a.is-active::after { right: 0; }
+
+/* Menu trigger — mobile only; desktop shows main-nav-inline instead */
+.menu-trigger {
+  display: none;
   align-items: center;
   gap: 10px;
   background: none;
@@ -1399,6 +1427,10 @@ input:focus, select:focus, textarea:focus {
 @media (max-width: 980px) {
   .section { padding: 72px 0; }
 
+  .main-nav-inline { gap: 18px; }
+  .main-nav-inline a { font-size: 0.92rem; }
+  .nav-cta { padding: 10px 16px; font-size: 0.9rem; white-space: nowrap; }
+
   .why-us__grid,
   .split,
   .split--reverse {
@@ -1422,6 +1454,8 @@ input:focus, select:focus, textarea:focus {
   .site-header__bar span:first-child { display: none; }
 
   .nav-cta { display: none; }
+  .main-nav-inline { display: none; }
+  .menu-trigger { display: flex; }
   .nav-overlay__panel { flex-direction: column; align-items: flex-start; gap: 36px; padding-top: 110px; }
 
   .services__grid { grid-template-columns: 1fr; }

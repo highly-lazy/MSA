@@ -26,7 +26,7 @@ export default function Home() {
             <p className="eyebrow-line">About MSA Transportation</p>
             <h2>A carrier built on reliability, safety and straight talk</h2>
             <p>
-              MSA Transportation Inc is a Warminster, PA-based truckload
+              MSA Transportation Inc is a Jamison, PA-based truckload
               carrier specializing in dry van and refrigerated (reefer) trucking.
               We work with shippers and brokers who need capacity they can
               count on — clear communication, careful handling and freight

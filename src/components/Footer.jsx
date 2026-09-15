@@ -17,7 +17,7 @@ export default function Footer() {
         <div className="site-footer__map-copy">
           <p className="eyebrow-line eyebrow-line--light">Find us</p>
           <h3>{CONTACT.address}</h3>
-          <p>Dispatch and recruiting run out of our Warminster, PA home base.</p>
+          <p>Dispatch and recruiting run out of our Jamison, PA home base.</p>
           <a href={CONTACT.mapDirectionsUrl} target="_blank" rel="noreferrer" className="btn btn--outline btn--arrow">
             Get Directions <span className="btn__arrow">&rarr;</span>
           </a>
@@ -34,7 +34,7 @@ export default function Footer() {
             </span>
           </div>
           <p className="site-footer__desc">
-            Dry van &amp; reefer trucking, based in Warminster, PA and
+            Dry van &amp; reefer trucking, based in Jamison, PA and
             running interstate lanes across the country.
           </p>
         </div>
