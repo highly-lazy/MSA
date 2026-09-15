@@ -1,0 +1,10 @@
+# Apache SPA fallback — needed on GoDaddy / Hostinger / cPanel style hosting
+# so direct links like /services or a page refresh don't 404.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
