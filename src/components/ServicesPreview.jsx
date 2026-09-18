@@ -16,7 +16,7 @@ export default function ServicesPreview() {
         <div className="services__grid">
           {SERVICES.map((s) => (
             <Link key={s.slug} to="/services" className="service-card service-card--link">
-              <span className="service-card__icon">{s.icon}</span>
+              <span className="service-card__icon" style={{ '--accent': s.accent }}>{s.icon}</span>
               <h3>{s.title}</h3>
               <p>{s.copy}</p>
               <span className="service-card__more">Learn more <span>&rarr;</span></span>

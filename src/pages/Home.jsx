@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import StatsBar from '../components/StatsBar'
+import TrustedBy from '../components/TrustedBy'
 import TrustFeatures from '../components/TrustFeatures'
 import ServicesPreview from '../components/ServicesPreview'
+import FleetSlider from '../components/FleetSlider'
 import RouteDivider from '../components/RouteDivider'
 import WhyUs from '../components/WhyUs'
 import StatesCoverage from '../components/StatesCoverage'
+import Testimonials from '../components/Testimonials'
 import CTABand from '../components/CTABand'
 import Reveal from '../components/Reveal'
 import { CONTACT, IMAGES } from '../constants'
@@ -15,8 +18,10 @@ export default function Home() {
     <>
       <Hero />
       <StatsBar />
+      <TrustedBy />
       <TrustFeatures />
       <ServicesPreview />
+      <FleetSlider />
       <RouteDivider />
       <WhyUs />
 
@@ -61,6 +66,7 @@ export default function Home() {
       </section>
 
       <StatesCoverage />
+      <Testimonials />
 
       <CTABand />
     </>

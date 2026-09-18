@@ -34,7 +34,7 @@ export default function Services() {
             <div className="service-detail-list">
               {SERVICES.map((s) => (
                 <div key={s.slug} className="service-detail">
-                  <span className="service-detail__icon">{s.icon}</span>
+                  <span className="service-detail__icon" style={{ '--accent': s.accent }}>{s.icon}</span>
                   <div>
                     <h3>{s.title}</h3>
                     <p>{s.detail}</p>

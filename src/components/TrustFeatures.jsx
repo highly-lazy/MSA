@@ -13,7 +13,7 @@ export default function TrustFeatures() {
         <div className="trust-features__grid">
           {TRUST_FEATURES.map((f, i) => (
             <Reveal key={f.title} className="trust-card" delay={i * 80}>
-              <span className="trust-card__icon">{f.icon}</span>
+              <span className="trust-card__icon" style={{ '--accent': f.accent }}>{f.icon}</span>
               <h3>{f.title}</h3>
               <p>{f.copy}</p>
             </Reveal>

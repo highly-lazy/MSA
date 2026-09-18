@@ -6,6 +6,7 @@ export const SERVICES = [
     title: 'Dry Van Freight',
     copy: 'Enclosed 53\' trailers built for palletized, boxed and general freight that needs to stay clean, dry and secure from pickup to delivery.',
     detail: 'Our dry van trailers are air-ride equipped and inspected before every run, so boxed, palletized and general commodities move without damage claims or delays.',
+    accent: '#4285F4',
     icon: (
       <svg viewBox="0 0 48 48" fill="none">
         <rect x="4" y="12" width="30" height="22" rx="2" stroke="currentColor" strokeWidth="2.5" />
@@ -21,6 +22,7 @@ export const SERVICES = [
     title: 'Dedicated Lanes',
     copy: 'Consistent capacity on your recurring routes, with the same drivers and predictable pickup and delivery windows every week.',
     detail: 'For shippers who move freight on a repeating schedule, we assign drivers and equipment to your lane so pickup and delivery times stay predictable, week after week.',
+    accent: '#F9AB00',
     icon: (
       <svg viewBox="0 0 48 48" fill="none">
         <path d="M8 40 20 8h8l12 32" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
@@ -35,6 +37,7 @@ export const SERVICES = [
     title: 'Refrigerated (Reefer)',
     copy: 'Temperature-controlled 53\' trailers for produce, dairy and other cold-chain freight, monitored from pickup to delivery.',
     detail: 'Our reefer trailers run on Carrier units with continuous temperature monitoring, so cold-chain freight stays in range from pickup to delivery.',
+    accent: '#34A853',
     icon: (
       <svg viewBox="0 0 48 48" fill="none">
         <rect x="4" y="12" width="30" height="22" rx="2" stroke="currentColor" strokeWidth="2.5" />
@@ -50,6 +53,7 @@ export const SERVICES = [
     title: 'Interstate Coverage',
     copy: 'Full truckload service across state lines, backed by a dispatch team that answers the phone and knows where your load is.',
     detail: 'We operate under our own MC and USDOT authority to run interstate freight, with dispatch tracking every load from pickup to proof of delivery.',
+    accent: '#EA4335',
     icon: (
       <svg viewBox="0 0 48 48" fill="none">
         <circle cx="24" cy="24" r="18" stroke="currentColor" strokeWidth="2.5" />
@@ -118,6 +122,7 @@ export const TRUST_FEATURES = [
   {
     title: 'On-Time Pickup & Delivery',
     copy: 'Routes are planned around your pickup and delivery windows, not the other way around.',
+    accent: '#4285F4',
     icon: (
       <svg viewBox="0 0 48 48" fill="none">
         <circle cx="24" cy="26" r="16" stroke="currentColor" strokeWidth="2.5" />
@@ -129,6 +134,7 @@ export const TRUST_FEATURES = [
   {
     title: 'Real-Time Updates',
     copy: 'Dispatch tracks every load from pickup to proof of delivery, so you always know where it is.',
+    accent: '#A142F4',
     icon: (
       <svg viewBox="0 0 48 48" fill="none">
         <path d="M24 4C13 4 6 13 6 24s7 20 18 20 18-9 18-20" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
@@ -141,6 +147,7 @@ export const TRUST_FEATURES = [
   {
     title: 'Safety First',
     copy: 'Inspected equipment, trained drivers and full cargo & liability coverage on every load.',
+    accent: '#34A853',
     icon: (
       <svg viewBox="0 0 48 48" fill="none">
         <path d="M24 5 40 12v13c0 11-7 18-16 18S8 36 8 25V12Z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
@@ -151,6 +158,7 @@ export const TRUST_FEATURES = [
   {
     title: '24/7 Dispatch Support',
     copy: 'A real person answers the phone, day or night, for shippers and drivers alike.',
+    accent: '#F9AB00',
     icon: (
       <svg viewBox="0 0 48 48" fill="none">
         <path d="M8 26v-4a16 16 0 0 1 32 0v4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
@@ -213,5 +221,35 @@ export const FAQ_DRIVERS = [
   {
     q: 'Who do I call once I\'m on the road?',
     a: 'You get a direct line to dispatch — no call centers, no runaround. Real people who know your load and your route.',
+  },
+]
+
+// Freight categories shown in the "trusted by" strip on the homepage.
+export const TRUSTED_CATEGORIES = [
+  'Dry Van Shippers',
+  'Cold-Chain & Reefer',
+  'Freight Brokerages',
+  'Dedicated Lane Partners',
+  'Produce & Perishables',
+  '3PL Partners',
+]
+
+// TODO: placeholder testimonials — swap in real broker/shipper quotes,
+// names and companies before this site goes live.
+export const TESTIMONIALS = [
+  {
+    quote: 'Dispatch answers the phone every time, and the load lands when they say it will. That reliability is rare.',
+    name: 'Placeholder Name',
+    role: 'Freight Broker Partner',
+  },
+  {
+    quote: 'We run a weekly reefer lane with MSA and haven\'t had a single missed pickup window. Communication is excellent.',
+    name: 'Placeholder Name',
+    role: 'Cold-Chain Shipper',
+  },
+  {
+    quote: 'Straightforward to work with — clear rates, clean equipment, and drivers who treat the freight like their own.',
+    name: 'Placeholder Name',
+    role: 'Dedicated Lane Customer',
   },
 ]

@@ -2,6 +2,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import HelpWidget from './components/HelpWidget'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import Careers from './pages/Careers'
@@ -29,6 +30,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
+      <HelpWidget />
     </>
   )
 }
