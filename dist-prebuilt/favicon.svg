@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 216">
+  <defs>
+    <linearGradient id="msa-favicon-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#123b6e" />
+      <stop offset="55%" stop-color="#0a2540" />
+      <stop offset="100%" stop-color="#061c33" />
+    </linearGradient>
+  </defs>
+  <path
+    d="M100 4 L182 30 V96 C182 148 148 190 100 212 C52 190 18 148 18 96 V30 Z"
+    fill="url(#msa-favicon-fill)"
+    stroke="#5fb2ea"
+    stroke-width="8"
+  />
+  <text
+    x="100"
+    y="132"
+    text-anchor="middle"
+    font-family="Arial, Helvetica, sans-serif"
+    font-weight="800"
+    font-size="88"
+    fill="#ffffff"
+    letter-spacing="1"
+  >MSA</text>
+</svg>

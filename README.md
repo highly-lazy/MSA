@@ -1,109 +1,93 @@
 # MSA Transportation Inc — Website
 
-A responsive, multi-page React website for MSA Transportation Inc
-(Dry Van &amp; Reefer trucking, MC-1153963 / USDOT 3498597).
-
-## Run it locally (edit & develop)
-
-```bash
-npm install
-npm run dev
-```
-
-Then open the local URL shown in the terminal.
-
-## Build for hosting
+Single-page marketing site for MSA Transportation Inc (dry van & reefer
+truckload, Jamison PA — USDOT 3498597 / MC-1153963). React + Vite +
+React Router, no animation library: motion is CSS plus tiny IntersectionObserver
+/ requestAnimationFrame hooks.
 
 ```bash
 npm install
-npm run build
+npm run dev        # develop
+npm run build      # production build → dist/
+npm run preview    # serve the build locally
 ```
 
-This creates a `dist/` folder with the finished static site — upload the
-contents of `dist/` to any web host (Netlify, Vercel, GoDaddy, Hostinger,
-cPanel, etc.).
+Visitor journey (top to bottom): **WOW** hero → **TRUST** credentials →
+**EXPERIENCE** story & stats → **PEOPLE** our trucks → **SAFETY** → **SERVICES** →
+fleet → **PROCESS** → departments & team → coverage map → **PROOF** customer
+promises → driver recruiting → FAQ → quote / contact → footer.
 
-A ready-made copy of this build is already included in this package under
-`dist-prebuilt/` — you can upload that folder as-is without running any
-commands, if you just want to publish the site quickly.
+## Replace placeholders with real data
 
-### Important: this is a multi-page app with client-side routing
+Everything factual lives in `src/data/`. Nothing is invented: anything that is
+not verified is `null` and renders as `XX+` / `[X]+ Years` / `[Add …]` until
+you fill it in.
 
-The site has four pages (Home, Services, Careers, Contact) handled by
-React Router in the browser, not separate HTML files. That means the
-server needs to send `index.html` for *any* URL (e.g. a visitor opening
-`yoursite.com/services` directly, or refreshing that page), not just `/`.
-Both `dist/` and `dist-prebuilt/` already include the config files for
-this:
+| What | File | Notes |
+| --- | --- | --- |
+| Phone, emails, address, MC/DOT, social links | `src/data/company.js` (`CONTACT`, `SOCIAL`) | The two emails are placeholders — use real inboxes. Social icons only render for URLs you add. |
+| Stats (drivers, miles, loads) | `src/data/company.js` (`STATS`) | Set `value` from `null` to a number; counters animate automatically. Years / fleet size / states are already set from verified data. |
+| Leadership faces | `src/data/people.js` (`LEADERS`) | Portrait photos, ~4:5. |
+| Departments | `src/data/people.js` (`DEPARTMENTS`) | Delete any department MSA does not actually staff. |
+| Testimonials | `src/data/operations.js` (`TESTIMONIALS`) | Marked "Placeholder" until you set `placeholder: false`. |
+| Driver pay / home time / benefits | `src/data/operations.js` (`DRIVER_INFO`) | Items with `todo` show a dashed placeholder. |
+| Services, fleet, own trucks, safety, process, FAQ | `src/data/operations.js` | Services: dry van, reefer, power only, dedicated lanes, interstate truckload. |
+| Service area | `src/data/company.js` (`COVERAGE`) | `served: 'all48'` reflects the company's stated coverage — change to a list of state codes if that is not accurate. Lane arcs on the map are illustrative. |
 
-- `_redirects` — works automatically on Netlify
-- `.htaccess` — works automatically on Apache-based hosts (GoDaddy,
-  Hostinger, cPanel) as long as `mod_rewrite` is enabled
-- `vercel.json` (project root) — works automatically on Vercel
+## Hero photo, video and seasons
 
-If your host doesn't support any of the above, ask their support how to
-set up an SPA fallback / rewrite rule to `index.html`.
+- **Hero background photo:** drop a file in `public/images/` (e.g. `hero-bg.webp`) and set
+  `IMAGES.heroBg` in `src/data/company.js`. It is blended under the headline; leave `null` for the
+  current animated backdrop. Wide (≥1920px), dark or low-contrast photos work best.
+- **"Delivering Excellence. Driving Trust." band:** a built-in animated dusk highway drawn on a canvas (no image or video
+  file): twinkling stars, three parallax skyline layers, perspective road with lamps, long-exposure light trails, a
+  truck driving ahead and wet-road reflections. It runs only while on screen and shows one still frame for
+  reduced-motion visitors. To use a real background video instead, put a silent, seamless 10–20 s loop in
+  `public/videos/` and set `VIDEO.src` / `VIDEO.webm` in `src/data/company.js`; it fades in over the scene.
+- **Fleet slider:** swipe / drag / arrows / dots (wraps around) with a gentle autoplay that pauses on hover, focus and touch. Slides come from `FLEET`.
+- **Seasons:** `public/images/seasons.webp` is sliced into four panels by CSS (no extra files). Copy is in
+  `SEASONS` (`src/data/operations.js`). The picture is illustrative, not MSA's own fleet.
 
-## Before you publish — update these
+## Forms
 
-Open `src/constants.js` and check the contact details:
+The quote, driver-application and callback forms use `src/lib/submitForm.js`:
 
-- **Address, MC and USDOT numbers** come from public FMCSA records and
-  should already be correct.
-- **Phone** is the number on file with FMCSA — confirm it's the one you
-  want listed publicly (dispatch line, cell, etc.).
-- **Dispatch and recruiting emails are placeholders** — replace
-  `dispatch@msatransportationinc.com` and
-  `careers@msatransportationinc.com` with real inboxes you check.
-- **The footer map** embeds Google Maps for the address in
-  `CONTACT.address` (`src/constants.js`) — no API key needed, it just
-  uses the free `google.com/maps?...&output=embed` URL format.
-
-The quote-request form (Services page), driver application form
-(Careers page) and contact form (Contact page) are front-end only (no
-backend yet) — they show a confirmation message on submit. To actually
-receive submissions, connect them to a form service (e.g. Formspree,
-Netlify Forms) or your own backend endpoint.
-
-## Structure
-
-- `src/pages/` — one file per page: Home, Services, Careers, Contact
-- `src/components/` — shared building blocks (Header with the
-  full-screen overlay menu, Footer with the Google Maps embed, Logo,
-  PageHero, StatsBar, TrustFeatures, StatesCoverage interactive map,
-  FAQ, CTABand, the three forms, Reveal scroll-animation wrapper, etc.)
-- `src/content.jsx` — service descriptions, why-us points, career
-  tracks, driver requirements, fleet specs, trust features, FAQ content
-- `src/constants.js` — contact info, nav links, image paths, Google
-  Maps links — edit here first
-- `src/styles.css` — all styling (blue/white brand palette), animations
-  and hover effects, fully responsive (desktop, tablet, mobile)
-- `public/us-states-map.svg` — public-domain (CC0) blank US states map
-  used by `StatesCoverage.jsx`; it's fetched and colored at runtime, and
-  the HQ marker is positioned from the Pennsylvania state path's own
-  bounding box (no hand-picked x/y coordinates). If the company ever
-  relocates to a different state, update the `.pa` selector in
-  `StatesCoverage.jsx` to that state's two-letter class (e.g. `.tx`).
-
-## Logo
-
-The header/footer logo (`src/components/Logo.jsx`) is a hand-built SVG
-recreation of the company's shield logo — built this way because it
-scales crisply at any size with no image file to manage. If you have
-the original logo artwork, you can swap it in: drop the file in
-`public/` and replace the `<Logo />` usages in `Header.jsx` and
-`Footer.jsx` with an `<img>` tag pointing to it.
+- Set **`VITE_FORM_ENDPOINT`** at build time (e.g. a Formspree URL) and submissions are
+  POSTed there as JSON.
+- If it is not set, the form opens the visitor's email app with the details
+  pre-filled (to `CONTACT.email` / `CONTACT.recruiting`) so nothing is silently dropped.
 
 ## Images
 
-The hero banner (`public/images/hero-cascadia.jpg`) and the services /
-equipment banner (`public/images/reefer-cascadia.jpg`, a Freightliner
-pulling a Carrier reefer trailer) are real photos from Wikimedia
-Commons — chosen deliberately so the truck and trailer shown match
-what a US dry-van-and-reefer carrier actually runs. They're credited
-in the footer, which is required by their CC BY-SA 4.0 licenses; keep
-that credit line if you keep the photos. The remaining photos are
-royalty-free stock from Unsplash, linked directly by URL in
-`src/constants.js`. Replace any of them with real photos of your own
-trucks, trailers and drivers whenever you have them, for the most
-authentic result.
+`public/images/` holds WebP files, all real MSA / supplied photos:
+
+- `own-042*.webp`, `own-035*.webp` — the company's own trucks, kept at native resolution (plus 480px versions for
+  phones). They feed the **Our trucks** gallery (`OWN_TRUCKS` in `src/data/operations.js` — add an entry and
+  the gallery grows; each photo opens full-size in a lightbox), the story section and the safety scanner
+  (`safety-truck.webp`, unit 035 — hotspot positions, in % of the photo, live in `SAFETY_HOTSPOTS`).
+- `trailer-dry.webp`, `trailer-reefer.webp`, `tractor-volvo.webp` — the supplied product shots with the white
+  background removed (transparent WebP). The reefer source is only 590px wide, so a larger one would look sharper.
+- `truck-blue.webp` is the hero cut-out (Peterbilt, background removed) — confirm you have the rights, or swap in your own.
+
+Drop new photos in `public/images/` and reference them from `IMAGES` in `src/data/company.js`.
+
+## Hosting
+
+Upload the contents of `dist/` (or the pre-built copy in `dist-prebuilt/`).
+Because the site uses client-side routing (`/privacy`, `/terms`), the host must
+serve `index.html` for unknown URLs — `_redirects` (Netlify), `.htaccess`
+(Apache) and `vercel.json` (Vercel) are already included. The old `/services`,
+`/careers` and `/contact` URLs redirect to the matching section of the home page.
+
+Before launch, check the domain in `index.html` (canonical / Open Graph URLs) — it assumes
+`msa-transportation.com`.
+`/privacy` and `/terms` are draft copy in `src/pages/Legal.jsx` — have counsel review.
+
+## Structure
+
+- `src/pages/Home.jsx` — section order · `src/pages/Legal.jsx` — Privacy / Terms
+- `src/components/` — one component per section (Hero, Story, Drivers, Safety,
+  Services, Fleet, Process, Departments, People, Coverage, Partner, Recruit,
+  FAQ, Quote, Footer) plus Header, HelpWidget, MobileBar, Reveal, Icon, Art
+- `src/styles/` — `base.css` (tokens, buttons, header), `hero.css`, `sections*.css`, `conversion.css`
+- `public/us-states-map.svg` — public-domain state map used by the coverage section

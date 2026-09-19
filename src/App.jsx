@@ -1,38 +1,51 @@
-import { Route, Routes, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import HelpWidget from './components/HelpWidget'
+import MobileBar from './components/MobileBar'
+import PageChrome from './components/PageChrome'
 import Home from './pages/Home'
-import Services from './pages/Services'
-import Careers from './pages/Careers'
-import Contact from './pages/Contact'
+import Legal from './pages/Legal'
 
-function ScrollToTop() {
-  const { pathname } = useLocation()
+// Scroll to the #section on hash navigation, otherwise to the top of the page.
+function ScrollManager() {
+  const { pathname, hash, key } = useLocation()
   useEffect(() => {
+    if (hash) {
+      // Wait a frame so the target section has mounted after a route change.
+      const raf = requestAnimationFrame(() => {
+        document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+      return () => cancelAnimationFrame(raf)
+    }
     window.scrollTo(0, 0)
-  }, [pathname])
+  }, [pathname, hash, key])
   return null
 }
 
-function App() {
+export default function App() {
   return (
     <>
-      <ScrollToTop />
+      <a className="skip-link" href="#main">Skip to content</a>
+      <ScrollManager />
+      <PageChrome />
       <Header />
-      <main>
+      <main id="main">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<Legal doc="privacy" />} />
+          <Route path="/terms" element={<Legal doc="terms" />} />
+          {/* The previous multi-page site's URLs now land on the matching section. */}
+          <Route path="/services" element={<Navigate to={{ pathname: '/', hash: '#services' }} replace />} />
+          <Route path="/careers" element={<Navigate to={{ pathname: '/', hash: '#drivers' }} replace />} />
+          <Route path="/contact" element={<Navigate to={{ pathname: '/', hash: '#contact' }} replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
       <Footer />
       <HelpWidget />
+      <MobileBar />
     </>
   )
 }
-
-export default App

@@ -1,0 +1,66 @@
+/* ==========================================================================
+   "Delivering Excellence. Driving Trust." — full-bleed photo band
+   ========================================================================== */
+
+.mo {
+  display: flex;
+  align-items: center;
+  min-height: min(80vh, 760px);
+  padding: clamp(96px, 12vw, 160px) 0;
+  background: #030912;
+  isolation: isolate;
+}
+
+.mo__canvas,
+.mo__video {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  width: 100%;
+  height: 100%;
+}
+.mo__video {
+  object-fit: cover;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+}
+.mo.has-video .mo__video {
+  opacity: 1;
+}
+
+.mo__shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(3, 9, 18, 0.82) 0%, rgba(3, 9, 18, 0.45) 45%, rgba(3, 9, 18, 0) 100%),
+    linear-gradient(180deg, #030912 0%, transparent 16%, transparent 84%, #030912 100%);
+}
+
+.mo__inner {
+  position: relative;
+}
+.mo .display {
+  margin-bottom: 22px;
+}
+.mo .lede {
+  max-width: 46ch;
+  color: #d0dcec;
+}
+.mo__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+@media (max-width: 720px) {
+  .mo {
+    min-height: 0;
+    padding-block: 88px;
+  }
+  .mo__shade {
+    background: linear-gradient(180deg, rgba(3, 9, 18, 0.78), rgba(3, 9, 18, 0.6) 50%, rgba(3, 9, 18, 0.85));
+  }
+}

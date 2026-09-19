@@ -1,31 +1,28 @@
 import { useEffect, useState } from 'react'
-import { CONTACT } from '../constants'
+import { CONTACT } from '../data/company'
+import submitForm from '../lib/submitForm'
+import Icon from './Icon'
 
-const PHONE_ICON = (
-  <svg viewBox="0 0 24 24" fill="none">
-    <path d="M4 5c0-.6.4-1 1-1h2.6c.5 0 .9.3 1 .8l.8 3.2c.1.4 0 .9-.4 1.2L7.6 10.5a13 13 0 0 0 5.9 5.9l1.3-1.4c.3-.3.8-.5 1.2-.4l3.2.8c.5.1.8.5.8 1V19c0 .6-.4 1-1 1h-1C9.9 20 4 14.1 4 6.6V5Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-  </svg>
-)
-
+// Desktop-only "call me back" prompt that appears after the first screen of scrolling.
+// (On phones the sticky MobileBar covers the same need.)
 export default function HelpWidget() {
   const [visible, setVisible] = useState(false)
   const [dismissed, setDismissed] = useState(false)
   const [phone, setPhone] = useState('')
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState('idle')
+  const [atEnd, setAtEnd] = useState(false)
 
   useEffect(() => {
-    let wasDismissed = false
     try {
-      wasDismissed = sessionStorage.getItem('msa-help-dismissed') === '1'
+      if (sessionStorage.getItem('msa-help-dismissed') === '1') {
+        setDismissed(true)
+        return
+      }
     } catch {
-      wasDismissed = false
-    }
-    if (wasDismissed) {
-      setDismissed(true)
-      return
+      // storage unavailable — fall through and show the widget
     }
     const onScroll = () => {
-      if (window.scrollY > window.innerHeight) {
+      if (window.scrollY > window.innerHeight * 1.2) {
         setVisible(true)
         window.removeEventListener('scroll', onScroll)
       }
@@ -34,49 +31,58 @@ export default function HelpWidget() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Step aside once the visitor reaches the quote form — it does the same job.
+  useEffect(() => {
+    const quote = document.getElementById('quote')
+    if (!quote || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver(([e]) => setAtEnd(e.isIntersecting || e.boundingClientRect.top < 0), { threshold: 0 })
+    io.observe(quote)
+    return () => io.disconnect()
+  }, [])
+
   const close = () => {
     setVisible(false)
     setDismissed(true)
     try {
       sessionStorage.setItem('msa-help-dismissed', '1')
     } catch {
-      // storage unavailable — nothing to persist
+      // nothing to persist
     }
   }
 
-  const handleSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
-    setSent(true)
+    setStatus('sending')
+    try {
+      await submitForm({ subject: 'Callback request', fields: { Phone: phone } })
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
   }
 
   if (dismissed) return null
 
   return (
-    <div className={`help-widget${visible ? ' is-visible' : ''}`} role="complementary" aria-label="Get help now">
-      <button type="button" className="help-widget__close" aria-label="Dismiss" onClick={close}>&times;</button>
-
-      {sent ? (
-        <p className="help-widget__sent">
-          Thanks — dispatch will call you back shortly. Or call{' '}
-          <a href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a> now.
+    <aside className={`help${visible && !atEnd ? ' is-visible' : ''}`} aria-label="Request a call back">
+      <button type="button" className="help__close" aria-label="Dismiss" onClick={close}>
+        <Icon name="close" size={16} />
+      </button>
+      {status === 'sent' || status === 'mailto' ? (
+        <p className="help__sent">
+          Thanks — we&rsquo;ll be in touch. Need us now? Call <a href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a>.
         </p>
       ) : (
-        <form onSubmit={handleSubmit}>
-          <h4>We&rsquo;re here to help 24/7</h4>
-          <p>Share your phone number&hellip;</p>
-          <div className="help-widget__row">
-            <span className="help-widget__icon">{PHONE_ICON}</span>
-            <input
-              type="tel"
-              required
-              placeholder="(___) ___-____"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
+        <form onSubmit={onSubmit}>
+          <h4>Talk to dispatch</h4>
+          <p>Leave your number and we&rsquo;ll call you back.</p>
+          <div className="help__row">
+            <input type="tel" required inputMode="tel" autoComplete="tel" placeholder="(___) ___-____" value={phone} onChange={(e) => setPhone(e.target.value)} aria-label="Your phone number" />
+            <button type="submit" className="btn btn--primary btn--sm" disabled={status === 'sending'}>Call me</button>
           </div>
-          <button type="submit" className="btn btn--primary btn--block">Get help</button>
+          {status === 'error' && <p className="form__error" role="alert">Couldn&rsquo;t send — call {CONTACT.phone}.</p>}
         </form>
       )}
-    </div>
+    </aside>
   )
 }

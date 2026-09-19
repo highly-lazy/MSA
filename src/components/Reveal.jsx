@@ -1,34 +1,14 @@
-import { useEffect, useRef, useState } from 'react'
+import useInView from '../hooks/useInView'
 
-export default function Reveal({ children, className = '', delay = 0, as: Tag = 'div', style }) {
-  const ref = useRef(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    if (typeof IntersectionObserver === 'undefined') {
-      setVisible(true)
-      return
-    }
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
+// Scroll-reveal wrapper. `variant` picks the entrance: up (default), left, right, scale, mask.
+export default function Reveal({ children, className = '', delay = 0, as: Tag = 'div', variant = 'up', threshold, style, ...rest }) {
+  const [ref, inView] = useInView(threshold === undefined ? undefined : { threshold })
   return (
     <Tag
       ref={ref}
-      className={`reveal${visible ? ' is-visible' : ''}${className ? ' ' + className : ''}`}
-      style={{ ...style, transitionDelay: `${delay}ms` }}
+      className={`reveal reveal--${variant}${inView ? ' is-in' : ''}${className ? ' ' + className : ''}`}
+      style={{ ...style, '--d': `${delay}ms` }}
+      {...rest}
     >
       {children}
     </Tag>
