@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IMAGES } from '../data/company'
 import { SERVICES } from '../data/operations'
@@ -6,9 +6,12 @@ import SectionHead from './SectionHead'
 import Reveal from './Reveal'
 import Art from './Art'
 import Icon from './Icon'
+import useDragScroll from '../hooks/useDragScroll'
 
 export default function Services() {
   const [active, setActive] = useState(0)
+  const tabs = useRef(null)
+  useDragScroll(tabs)
   const s = SERVICES[active]
 
   return (
@@ -23,7 +26,7 @@ export default function Services() {
         />
 
         <Reveal className="showcase" variant="scale">
-          <div className="showcase__tabs" role="tablist" aria-label="Services">
+          <div className="showcase__tabs" ref={tabs} role="tablist" aria-label="Services">
             {SERVICES.map((item, i) => (
               <button
                 key={item.id}

@@ -831,3 +831,34 @@ textarea {
   mix-blend-mode: normal;
   filter: drop-shadow(0 24px 26px rgba(0, 0, 0, 0.55));
 }
+
+
+/* Mouse-draggable scrollers (the phone layouts): grab cursor, snapping paused while dragging. */
+.is-dragging {
+  scroll-snap-type: none !important;
+  cursor: grabbing !important;
+  user-select: none;
+}
+.is-dragging * {
+  cursor: grabbing !important;
+}
+.trucks__grid img,
+.showcase__tabs img,
+.seasons__rail img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .trucks__grid { cursor: grab; }
+  .showcase__tabs { cursor: grab; }
+  .seasons__rail { cursor: grab; }
+}
+@media (hover: hover) and (pointer: fine) and (min-width: 720px) {
+  .trucks__grid { cursor: auto; }
+}
+@media (hover: hover) and (pointer: fine) and (min-width: 900px) {
+  .showcase__tabs { cursor: auto; }
+}
+@media (hover: hover) and (pointer: fine) and (min-width: 820px) {
+  .seasons__rail { cursor: auto; }
+}

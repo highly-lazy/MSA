@@ -3,6 +3,7 @@ import { IMAGES } from '../data/company'
 import { SEASONS } from '../data/operations'
 import SectionHead from './SectionHead'
 import Reveal from './Reveal'
+import useDragScroll from '../hooks/useDragScroll'
 
 // Falling particles per season. Deterministic (no Math.random) so renders are stable.
 const PARTICLES = Array.from({ length: 16 }, (_, i) => ({
@@ -40,6 +41,7 @@ export default function Seasons() {
   const [active, setActive] = useState(0)
   const [auto, setAuto] = useState(true)
   const rail = useRef(null)
+  useDragScroll(rail)
 
   useEffect(() => {
     if (!auto || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return

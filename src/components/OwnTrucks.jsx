@@ -4,11 +4,14 @@ import { OWN_TRUCKS } from '../data/operations'
 import SectionHead from './SectionHead'
 import Reveal from './Reveal'
 import Icon from './Icon'
+import useDragScroll from '../hooks/useDragScroll'
 
 // Gallery of the company's own trucks. Cards open a full-resolution lightbox (native <dialog>).
 export default function OwnTrucks() {
   const [open, setOpen] = useState(null)
   const dialog = useRef(null)
+  const grid = useRef(null)
+  useDragScroll(grid)
   const item = OWN_TRUCKS.find((t) => t.id === open)
 
   useEffect(() => {
@@ -30,7 +33,7 @@ export default function OwnTrucks() {
           lede={`The equipment you will see at your dock — marked with our name, ${CONTACT.mc.replace('-', '\u2011')} and ${CONTACT.dot}.`}
         />
 
-        <ul className="trucks__grid" data-count={OWN_TRUCKS.length}>
+        <ul className="trucks__grid" ref={grid} data-count={OWN_TRUCKS.length}>
           {OWN_TRUCKS.map((t, i) => (
             <Reveal as="li" key={t.id} className="truck" delay={i * 120} threshold={0.01}>
               <button type="button" className="truck__btn" onClick={() => setOpen(t.id)} aria-label={`View ${t.unit} full size`}>
