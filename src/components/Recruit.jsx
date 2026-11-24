@@ -3,6 +3,9 @@ import { ApplicationForm } from './Forms'
 import Reveal from './Reveal'
 import Icon from './Icon'
 
+// Items still waiting on real details (`copy: null`) stay hidden; `todo` notes are never shown publicly.
+const VISIBLE_INFO = DRIVER_INFO.filter((d) => d.copy)
+
 export default function Recruit() {
   return (
     <section className="section section--brand recruit" id="drivers" data-nav="drivers" aria-labelledby="recruit-title">
@@ -37,13 +40,12 @@ export default function Recruit() {
           </Reveal>
 
           <ul className="recruit__info">
-            {DRIVER_INFO.map((d, i) => (
-              <Reveal as="li" key={d.title} delay={(i % 2) * 90} className={d.copy ? '' : 'is-todo'}>
+            {VISIBLE_INFO.map((d, i) => (
+              <Reveal as="li" key={d.title} delay={(i % 2) * 90}>
                 <Icon name={d.icon} size={22} />
                 <div>
                   <h4>{d.title}</h4>
-                  {d.copy && <p>{d.copy}</p>}
-                  {d.todo && <p className="todo">{d.todo}</p>}
+                  <p>{d.copy}</p>
                 </div>
               </Reveal>
             ))}

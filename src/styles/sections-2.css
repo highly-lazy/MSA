@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Departments · People · Coverage · Partner · Recruit
+   Departments · Coverage · Partner · Recruit
    ========================================================================== */
 
 /* ---------- departments ---------- */
@@ -207,88 +207,6 @@
   .dept__inner {
     min-width: 300px;
     padding-inline: 24px;
-  }
-}
-
-/* ---------- people ---------- */
-.people__grid {
-  display: grid;
-  gap: 20px;
-}
-.person__photo {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 4 / 4.6;
-  border-radius: 26px;
-  background: linear-gradient(160deg, var(--navy-2), var(--navy));
-  margin-bottom: 18px;
-}
-.person__photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s var(--ease);
-}
-.person:hover .person__photo img {
-  transform: scale(1.06);
-}
-.person__placeholder {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: end center;
-  color: rgba(157, 176, 200, 0.35);
-  transition: transform 0.8s var(--ease);
-}
-.person__placeholder .icon {
-  width: 72%;
-  height: auto;
-  transform: translateY(10%);
-}
-.person:hover .person__placeholder {
-  transform: scale(1.05);
-}
-.person__role {
-  position: absolute;
-  left: 14px;
-  bottom: 14px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.94);
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink);
-}
-.person h3 {
-  font-family: var(--f-display);
-  font-size: 1.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: var(--ink);
-}
-.person p {
-  color: var(--muted);
-  font-size: 0.9688rem;
-}
-
-@media (min-width: 560px) {
-  .people__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (min-width: 980px) {
-  .people__grid {
-    grid-template-columns: 1.35fr 1fr 1fr 1fr;
-    align-items: start;
-  }
-  .person:nth-child(even) {
-    margin-top: 48px;
-  }
-  .person--lead .person__photo {
-    aspect-ratio: 4 / 5.4;
   }
 }
 
@@ -614,9 +532,24 @@
     gap: 20px;
   }
 }
-@media (max-width: 400px) {
-  .promises {
-    grid-template-columns: 1fr;
+@media (max-width: 719px) {
+  .promise {
+    padding: 18px 14px 20px;
+    border-radius: 18px;
+  }
+  .promise__icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+  }
+  .promise h3 {
+    font-size: 1.05rem;
+    overflow-wrap: anywhere;
+  }
+  .promise p {
+    font-size: 0.8125rem;
+    line-height: 1.5;
   }
 }
 

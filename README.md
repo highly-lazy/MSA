@@ -14,7 +14,7 @@ npm run preview    # serve the build locally
 
 Visitor journey (top to bottom): **WOW** hero → **TRUST** credentials →
 **EXPERIENCE** story & stats → **PEOPLE** our trucks → **SAFETY** → **SERVICES** →
-fleet → **PROCESS** → departments & team → coverage map → **PROOF** customer
+fleet → **PROCESS** → departments → coverage map → **PROOF** customer
 promises → driver recruiting → FAQ → quote / contact → footer.
 
 ## Replace placeholders with real data
@@ -27,7 +27,6 @@ you fill it in.
 | --- | --- | --- |
 | Phone, emails, address, MC/DOT, social links | `src/data/company.js` (`CONTACT`, `SOCIAL`) | The two emails are placeholders — use real inboxes. Social icons only render for URLs you add. |
 | Stats (drivers, miles, loads) | `src/data/company.js` (`STATS`) | Set `value` from `null` to a number; counters animate automatically. Years / fleet size / states are already set from verified data. |
-| Leadership faces | `src/data/people.js` (`LEADERS`) | Portrait photos, ~4:5. |
 | Departments | `src/data/people.js` (`DEPARTMENTS`) | Delete any department MSA does not actually staff. |
 | Testimonials | `src/data/operations.js` (`TESTIMONIALS`) | Marked "Placeholder" until you set `placeholder: false`. |
 | Driver pay / home time / benefits | `src/data/operations.js` (`DRIVER_INFO`) | Items with `todo` show a dashed placeholder. |
@@ -87,7 +86,7 @@ Before launch, check the domain in `index.html` (canonical / Open Graph URLs) �
 
 - `src/pages/Home.jsx` — section order · `src/pages/Legal.jsx` — Privacy / Terms
 - `src/components/` — one component per section (Hero, Story, Drivers, Safety,
-  Services, Fleet, Process, Departments, People, Coverage, Partner, Recruit,
+  Services, Fleet, Process, Departments, Coverage, Partner, Recruit,
   FAQ, Quote, Footer) plus Header, HelpWidget, MobileBar, Reveal, Icon, Art
 - `src/styles/` — `base.css` (tokens, buttons, header), `hero.css`, `sections*.css`, `conversion.css`
 - `public/us-states-map.svg` — public-domain state map used by the coverage section

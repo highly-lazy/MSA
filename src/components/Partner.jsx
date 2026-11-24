@@ -3,6 +3,9 @@ import SectionHead from './SectionHead'
 import Reveal from './Reveal'
 import Icon from './Icon'
 
+// Placeholder testimonials are never shown publicly; the block appears once a real one is added.
+const REAL_TESTIMONIALS = TESTIMONIALS.filter((t) => !t.placeholder)
+
 export default function Partner() {
   return (
     <section className="section section--paper partner" id="partner" aria-labelledby="partner-title">
@@ -25,14 +28,14 @@ export default function Partner() {
           ))}
         </ul>
 
+        {REAL_TESTIMONIALS.length > 0 && (
         <div className="proof">
           <Reveal className="proof__head">
             <p className="eyebrow">In their words</p>
           </Reveal>
           <ul className="proof__grid">
-            {TESTIMONIALS.map((t, i) => (
+            {REAL_TESTIMONIALS.map((t, i) => (
               <Reveal as="li" key={i} className="quote" delay={i * 110}>
-                {t.placeholder && <span className="quote__ribbon">Placeholder</span>}
                 <span className="quote__mark" aria-hidden="true">&ldquo;</span>
                 <blockquote>{t.quote}</blockquote>
                 <footer>
@@ -46,6 +49,7 @@ export default function Partner() {
             ))}
           </ul>
         </div>
+        )}
       </div>
     </section>
   )

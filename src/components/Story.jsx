@@ -5,6 +5,9 @@ import useCountUp from '../hooks/useCountUp'
 import Reveal from './Reveal'
 import Icon from './Icon'
 
+// Only verified figures are shown; a stat with `value: null` stays hidden until it is filled in.
+const VISIBLE_STATS = STATS.filter((s) => s.value != null)
+
 function Stat({ stat, index }) {
   const [ref, inView] = useInView({ threshold: 0.4 })
   const n = useCountUp(stat.value, inView)
@@ -96,8 +99,8 @@ export default function Story() {
       </div>
 
       <div className="container">
-        <div className="stats" role="list">
-          {STATS.map((s, i) => (
+        <div className="stats" role="list" style={{ '--n': VISIBLE_STATS.length }}>
+          {VISIBLE_STATS.map((s, i) => (
             <div role="listitem" key={s.id} className="stats__cell">
               <Stat stat={s} index={i} />
             </div>

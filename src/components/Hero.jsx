@@ -82,8 +82,8 @@ export default function Hero() {
             <Link to={hashLink('quote')} className="btn btn--primary btn--lg">
               Get a Quote <Icon name="arrow" size={18} />
             </Link>
-            <Link to={hashLink('team')} className="btn btn--ghost btn--lg">
-              Meet Our Team
+            <Link to={hashLink('services')} className="btn btn--ghost btn--lg">
+              Our Services
             </Link>
           </div>
 

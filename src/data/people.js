@@ -1,15 +1,3 @@
-// People content. Nothing here is a real person yet — every card is a
-// placeholder built to be replaced. To fill one in, set `name` and `photo`
-// (e.g. '/images/team/john-smith.webp'). A `null` photo renders a neutral portrait frame.
-
-// Leadership / operations faces. Rounded-square portraits.
-export const LEADERS = [
-  { name: 'Full Name', role: 'Management', blurb: 'Sets the standard for how every load is run.', photo: null },
-  { name: 'Full Name', role: 'Operations & Dispatch', blurb: 'The voice on the phone who knows where your freight is.', photo: null },
-  { name: 'Full Name', role: 'Safety & Compliance', blurb: 'Keeps drivers, equipment and paperwork road-ready.', photo: null },
-  { name: 'Full Name', role: 'Fleet & Maintenance', blurb: 'Keeps tractors and trailers inspected and moving.', photo: null },
-]
-
 // Departments. These describe what each function does at a professional
 // carrier — remove any that MSA does not actually staff.
 export const DEPARTMENTS = [

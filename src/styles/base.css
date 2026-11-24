@@ -688,7 +688,6 @@ code {
 .faq__grid,
 .showcase,
 .showcase__panel,
-.people__grid,
 .proof__grid {
   grid-template-columns: minmax(0, 1fr);
 }
