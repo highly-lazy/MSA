@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { VIDEO } from '../data/company'
+import { VIDEO, sectionLink } from '../data/company'
 import Reveal from './Reveal'
 import Icon from './Icon'
-
-const hashLink = (id) => ({ pathname: '/', hash: `#${id}` })
 
 const HORIZON = 0.5
 const NEAR = 1
@@ -449,10 +447,10 @@ export default function MotionBand() {
             Every load, every mile, every season — handled with the care and accountability of a carrier that answers the phone.
           </p>
           <div className="mo__actions">
-            <Link to={hashLink('quote')} className="btn btn--primary btn--lg">
+            <Link to={sectionLink('quote')} className="btn btn--primary btn--lg">
               Get a quote <Icon name="arrow" size={18} />
             </Link>
-            <Link to={hashLink('apply')} className="btn btn--ghost btn--lg">
+            <Link to={sectionLink('apply')} className="btn btn--ghost btn--lg">
               Drive with us
             </Link>
           </div>

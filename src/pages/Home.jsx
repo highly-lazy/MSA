@@ -1,24 +1,18 @@
 import Hero from '../components/Hero'
+import QuickQuote from '../components/QuickQuote'
 import TrustStrip from '../components/TrustStrip'
-import Story from '../components/Story'
-import OwnTrucks from '../components/OwnTrucks'
-import Safety from '../components/Safety'
+import Paths from '../components/Paths'
 import Services from '../components/Services'
 import Fleet from '../components/Fleet'
+import WhyMsa from '../components/WhyMsa'
 import Process from '../components/Process'
-import InlineCta from '../components/InlineCta'
-import Departments from '../components/Departments'
 import Coverage from '../components/Coverage'
-import Partner from '../components/Partner'
-import Recruit from '../components/Recruit'
+import MotionBand from '../components/MotionBand'
 import FAQ from '../components/FAQ'
 import Quote from '../components/Quote'
-import QuickQuote from '../components/QuickQuote'
-import Paths from '../components/Paths'
-import CarrierPacket from '../components/CarrierPacket'
-import MotionBand from '../components/MotionBand'
 
-// Visitor journey: offer and rate → who are you → what we haul → how it works → why trust us → set up, apply, quote
+// Visitor journey: offer and rate → who are you → what we haul → why us → how and where → quote.
+// Company, safety, broker and driver detail live on their own pages.
 export default function Home() {
   return (
     <>
@@ -28,17 +22,10 @@ export default function Home() {
       <Paths />
       <Services />
       <Fleet />
+      <WhyMsa />
       <Process />
-      <InlineCta title="Freight ready to roll?" text="Send us the lane. We'll show you how we'd move it." />
-      <Departments />
       <Coverage />
-      <Story />
-      <OwnTrucks />
-      <Safety />
-      <Partner />
-      <CarrierPacket />
       <MotionBand />
-      <Recruit />
       <FAQ />
       <Quote />
     </>

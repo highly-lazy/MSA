@@ -7,13 +7,14 @@ import Icon from './Icon'
 // Items still waiting on real details (`copy: null`) stay hidden; `todo` notes are never shown publicly.
 const VISIBLE_INFO = DRIVER_INFO.filter((d) => d.copy)
 
-export default function Recruit() {
+// `headless` drops the heading when the page banner already carries it.
+export default function Recruit({ headless = false }) {
   return (
     <section className="section section--brand recruit" id="drivers" data-nav="drivers" aria-labelledby="recruit-title">
       <div className="recruit__bg" aria-hidden="true" />
       <div className="container recruit__grid">
         <div className="recruit__copy">
-          <Reveal>
+          {!headless && <Reveal>
             <p className="eyebrow">Now hiring</p>
             <h2 id="recruit-title" className="display display--xl">
               <span>Ready to drive</span>
@@ -30,7 +31,7 @@ export default function Recruit() {
               Rather talk first? Call <a href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a> or email{' '}
               <a href={mailto({ to: CONTACT.recruiting, subject: 'Driver inquiry' })}>{CONTACT.recruiting}</a>.
             </p>
-          </Reveal>
+          </Reveal>}
 
           <Reveal delay={120} className="recruit__reqs">
             <h3>What it takes</h3>

@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
+import { sectionLink } from '../data/company'
 import { AUDIENCES } from '../data/operations'
 import SectionHead from './SectionHead'
 import Reveal from './Reveal'
 import Icon from './Icon'
 
-// Sends each kind of visitor to the part of the page built for them.
+// Sends each kind of visitor to the part of the site built for them.
 export default function Paths() {
   return (
     <section className="section section--paper paths" aria-labelledby="paths-title">
@@ -25,7 +26,7 @@ export default function Paths() {
                   </li>
                 ))}
               </ul>
-              <Link to={{ pathname: '/', hash: a.cta.hash }} className="path__cta">
+              <Link to={sectionLink(a.cta.section)} className="path__cta">
                 {a.cta.label} <Icon name="arrow" size={18} />
               </Link>
             </Reveal>

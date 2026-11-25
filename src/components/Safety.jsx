@@ -5,19 +5,20 @@ import SectionHead from './SectionHead'
 import Reveal from './Reveal'
 import Icon from './Icon'
 
-export default function Safety() {
+// `headless` drops the heading when the page banner already carries it.
+export default function Safety({ headless = false }) {
   const [active, setActive] = useState(SAFETY_HOTSPOTS[0].id)
   const current = SAFETY_HOTSPOTS.find((h) => h.id === active)
 
   return (
     <section className="section section--ink safety" id="safety" data-nav="safety" aria-labelledby="safety-title">
       <div className="container">
-        <SectionHead
+        {!headless && <SectionHead
           id="safety-title"
           eyebrow="Safety & compliance"
           title={["Safety Isn't a Policy.", "It's Our Standard."]}
           lede="Safe freight is the result of a hundred small habits done the same way every day — starting with a walk-around before the wheels ever turn."
-        />
+        />}
 
         <div className="safety__grid">
           <Reveal className="safety__scan" variant="scale">

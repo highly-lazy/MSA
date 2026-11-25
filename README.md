@@ -1,6 +1,6 @@
 # MSA Transportation Inc — Website
 
-Single-page marketing site for MSA Transportation Inc (dry van & reefer
+Marketing site for MSA Transportation Inc (dry van & reefer
 truckload, Jamison PA — USDOT 3498597 / MC-1153963). React + Vite +
 React Router, no animation library: motion is CSS plus tiny IntersectionObserver
 / requestAnimationFrame hooks.
@@ -12,10 +12,18 @@ npm run build      # production build → dist/
 npm run preview    # serve the build locally
 ```
 
-Visitor journey (top to bottom): hero + rate bar → credentials → audience paths
-(shipper / broker / driver) → services → fleet → process → departments → coverage map →
-story & stats → our trucks → safety → customer promises → carrier packet (broker setup) →
-highway band → driver recruiting → FAQ → quote / contact → footer.
+Pages:
+
+- `/` hero + rate bar, credentials, audience paths, services, fleet, why MSA, process, coverage, highway band, FAQ, quote
+- `/about` story, our trucks, departments
+- `/safety` walk-around scanner and compliance
+- `/brokers` carrier packet, customer promises, FAQ
+- `/drivers` requirements, application, driver FAQ
+- `/privacy`, `/terms`, and a 404 page
+
+Which page a section lives on is set in one place, `SECTION_PAGE` in `src/data/company.js`; build links with
+`sectionLink(id)`. Titles and descriptions are in `src/data/pages.js`. The build writes a static HTML file per page
+(see `vite.config.js`) so search engines and link previews get the right ones.
 
 ## Replace placeholders with real data
 
@@ -36,9 +44,8 @@ you fill it in.
 
 ## Hero photo, video and seasons
 
-- **Hero background photo:** drop a file in `public/images/` (e.g. `hero-bg.webp`) and set
-  `IMAGES.heroBg` in `src/data/company.js`. It is blended under the headline; leave `null` for the
-  current animated backdrop. Wide (≥1920px), dark or low-contrast photos work best.
+- **Hero photo:** `hero-042.webp` (and `hero-042-sm.webp` for phones), a crop of Unit 042. A sharper original
+  (2000px or wider) would look better on large screens: replace both files and the preload line in `index.html`.
 - **"Delivering Excellence. Driving Trust." band:** a built-in animated dusk highway drawn on a canvas (no image or video
   file): twinkling stars, three parallax skyline layers, perspective road with lamps, long-exposure light trails, a
   truck driving ahead and wet-road reflections. It runs only while on screen and shows one still frame for
@@ -61,31 +68,32 @@ The quote, driver-application and callback forms use `src/lib/submitForm.js`:
 
 `public/images/` holds WebP files, all real MSA / supplied photos:
 
-- `own-042*.webp`, `own-035*.webp` — the company's own trucks, kept at native resolution (plus 480px versions for
+- `unit-042*.webp`, `own-035*.webp` — the company's own trucks, kept at native resolution (plus 480px versions for
   phones). They feed the **Our trucks** gallery (`OWN_TRUCKS` in `src/data/operations.js` — add an entry and
   the gallery grows; each photo opens full-size in a lightbox), the story section and the safety scanner
   (`safety-truck.webp`, unit 035 — hotspot positions, in % of the photo, live in `SAFETY_HOTSPOTS`).
 - `trailer-dry.webp`, `trailer-reefer.webp`, `tractor-volvo.webp` — the supplied product shots with the white
   background removed (transparent WebP). The reefer source is only 590px wide, so a larger one would look sharper.
-- `truck-blue.webp` is the hero cut-out (Peterbilt, background removed) — confirm you have the rights, or swap in your own.
+- `hero-042*.webp`, `cab-042.webp` and `unit-042*.webp` are crops of `own-042.webp`, the original.
+- `own-042.webp` is kept only as the original photo; the site does not load it.
 
 Drop new photos in `public/images/` and reference them from `IMAGES` in `src/data/company.js`.
 
 ## Hosting
 
 Upload the contents of `dist/` (or the pre-built copy in `dist-prebuilt/`).
-Because the site uses client-side routing (`/privacy`, `/terms`), the host must
+Because the site uses client-side routing (`/about`, `/drivers` and so on), the host must
 serve `index.html` for unknown URLs — `_redirects` (Netlify), `.htaccess`
 (Apache) and `vercel.json` (Vercel) are already included. The old `/services`,
-`/careers` and `/contact` URLs redirect to the matching section of the home page.
+`/careers` and `/contact` URLs redirect to the matching page or section, and so do old one-page links such as `/#drivers`.
 
-Before launch, check the domain in `index.html` (canonical / Open Graph URLs), `public/robots.txt` and
-`public/sitemap.xml` — they assume `https://msatransport.com` (the company email domain).
+The live address is `https://www.msatransportinc.com` (`SITE_URL` in `src/data/company.js`). It is also written in
+`index.html`, `public/robots.txt` and `public/sitemap.xml`.
 `/privacy` and `/terms` are draft copy in `src/pages/Legal.jsx` — have counsel review.
 
 ## Structure
 
-- `src/pages/Home.jsx` — section order · `src/pages/Legal.jsx` — Privacy / Terms
+- `src/pages/` — one file per page · `src/pages/Legal.jsx` — Privacy / Terms
 - `src/components/` — one component per section (Hero, Story, Drivers, Safety,
   Services, Fleet, Process, Departments, Coverage, Partner, Recruit,
   FAQ, Quote, Footer) plus Header, HelpWidget, MobileBar, Reveal, Icon, Art

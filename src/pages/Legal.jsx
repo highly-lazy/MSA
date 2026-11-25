@@ -1,6 +1,5 @@
-import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { CONTACT } from '../data/company'
+import PageHero from '../components/PageHero'
 
 // DRAFT legal copy. Have counsel review before launch and adjust to how the
 // business actually handles data.
@@ -29,20 +28,12 @@ const DOCS = {
 
 export default function Legal({ doc }) {
   const d = DOCS[doc]
-  useEffect(() => {
-    const prev = document.title
-    document.title = `${d.title} | MSA Transportation Inc`
-    return () => {
-      document.title = prev
-    }
-  }, [d.title])
 
   return (
+    <>
+    <PageHero crumb={d.title} title={[d.title]} lede={`MSA Transportation Inc · ${CONTACT.address}`} />
     <section className="legal section section--light">
       <div className="container legal__inner">
-        <Link to="/" className="legal__back">&larr; Back to home</Link>
-        <h1>{d.title}</h1>
-        <p className="legal__meta">MSA Transportation Inc · {CONTACT.address}</p>
         {d.sections.map(([h, p]) => (
           <div key={h}>
             <h2>{h}</h2>
@@ -51,5 +42,6 @@ export default function Legal({ doc }) {
         ))}
       </div>
     </section>
+    </>
   )
 }

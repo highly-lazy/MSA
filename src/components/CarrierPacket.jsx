@@ -29,7 +29,8 @@ const packetMail = mailto({
 })
 
 // Broker onboarding: copyable authority details, FMCSA lookup and a document request.
-export default function CarrierPacket() {
+// `headless` drops the heading when the page banner already carries it.
+export default function CarrierPacket({ headless = false }) {
   const [copied, setCopied] = useState('')
   const timer = useRef(0)
   useEffect(() => () => clearTimeout(timer.current), [])
@@ -49,13 +50,13 @@ export default function CarrierPacket() {
     <section className="section section--light packet" id="brokers" data-nav="brokers" aria-labelledby="packet-title">
       <div className="container packet__grid">
         <div>
-          <SectionHead
+          {!headless && <SectionHead
             id="packet-title"
             tone="light"
             eyebrow="Broker & shipper setup"
             title={['Set us up.', 'Book the load.']}
             lede="Everything your onboarding team asks for, in one place. Copy the numbers, check our record with FMCSA, and request the rest by email."
-          />
+          />}
           <Reveal delay={100}>
             <p className="packet__label">Sent on request</p>
             <ul className="packet__docs">

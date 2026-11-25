@@ -15,7 +15,7 @@ export const AUDIENCES = [
     title: 'Shippers',
     copy: 'Put your freight with the carrier that runs it, and keep one phone number from pickup to proof of delivery.',
     points: ["53' dry van and reefer truckload", 'Dedicated capacity on repeating lanes', 'Updates before you have to ask'],
-    cta: { label: 'Get a rate', hash: '#quote' },
+    cta: { label: 'Get a rate', section: 'quote' },
   },
   {
     id: 'brokers',
@@ -24,7 +24,7 @@ export const AUDIENCES = [
     title: 'Freight brokers',
     copy: 'A carrier that answers check calls and keeps paperwork clean. Our authority details are ready to copy.',
     points: ['Own MC and USDOT, verifiable on FMCSA', 'Dry van, reefer and power only', 'Setup documents by email'],
-    cta: { label: 'Get the carrier packet', hash: '#brokers' },
+    cta: { label: 'Get the carrier packet', section: 'brokers' },
   },
   {
     id: 'drivers',
@@ -33,7 +33,7 @@ export const AUDIENCES = [
     title: 'Drivers & owner operators',
     copy: 'Drive MSA equipment or run your own truck under our dispatch, with people who know your load.',
     points: ['Company driver or owner operator', 'Dry van, reefer and power-only freight', 'A direct line to dispatch'],
-    cta: { label: 'Apply to drive', hash: '#apply' },
+    cta: { label: 'Apply to drive', section: 'drivers' },
   },
 ]
 
@@ -96,9 +96,9 @@ export const FLEET = [
     id: 'tractors',
     name: 'Tractors',
     tag: 'Power',
-    image: 'own042',
-    small: 'own042Small',
-    pos: '32% 58%',
+    image: 'own035',
+    small: 'own035Small',
+    pos: '50% 62%',
     copy: 'Late-model day-cab and sleeper tractors, regularly serviced and inspected.',
     specs: ['Day-cab & sleeper configurations', 'Scheduled preventive maintenance', 'DOT-inspection ready'],
   },
@@ -241,7 +241,7 @@ export const DRIVER_INFO = [
 
 export const FAQ = {
   shippers: [
-    { q: 'How do I request a quote?', a: 'Use the quote form on this page with your pickup and delivery locations, freight type and target date. Dispatch will follow up with pricing, usually the same business day.' },
+    { q: 'How do I request a quote?', a: 'Use the quote form on this site with your pickup and delivery locations, freight type and target date. Dispatch will follow up with pricing, usually the same business day.' },
     { q: 'How do I set MSA up as a carrier?', a: 'Email info@msatransport.com with your broker or shipper packet and the documents you need, such as our W-9 and certificate of insurance. You can check our record on FMCSA any time under USDOT 3498597.' },
     { q: 'What kind of freight do you haul?', a: 'Dry van and refrigerated (reefer) truckload freight — palletized or boxed general commodities as well as temperature-controlled loads like produce and dairy. We also take power-only loads: you supply the trailer, we supply the tractor and driver.' },
     { q: 'Do you offer dedicated lanes?', a: 'Yes. If you move freight on a repeating schedule, we can assign a driver and equipment to your lane so pickup and delivery times stay consistent week after week.' },

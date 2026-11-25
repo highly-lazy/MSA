@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { CONTACT, NAV_LINKS, mailto } from '../data/company'
+import { CONTACT, NAV_LINKS, mailto, sectionLink, sectionPage } from '../data/company'
 import Logo from './Logo'
 import Icon from './Icon'
-
-const hashLink = (id) => ({ pathname: '/', hash: `#${id}` })
 
 export default function Header() {
   const { pathname } = useLocation()
@@ -22,9 +20,11 @@ export default function Header() {
   // Scroll-spy: highlight the nav link for the section in the middle of the viewport.
   useEffect(() => {
     if (pathname !== '/' || typeof IntersectionObserver === 'undefined') {
-      setActive('')
+      const here = pathname.replace(/\/+$/, '')
+      setActive(NAV_LINKS.find((l) => here && sectionPage(l.id) === here)?.id ?? '')
       return
     }
+    setActive('')
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -58,7 +58,7 @@ export default function Header() {
           <ul>
             <li><a href={mailto()}><Icon name="mail" size={15} /> {CONTACT.email}</a></li>
             <li><a href={CONTACT.mapDirectionsUrl} target="_blank" rel="noreferrer"><Icon name="pin" size={15} /> Jamison, PA</a></li>
-            <li><Link to={hashLink('apply')} className="topbar__hire">Now hiring CDL-A drivers</Link></li>
+            <li><Link to={sectionLink('apply')} className="topbar__hire">Now hiring CDL-A drivers</Link></li>
           </ul>
         </div>
       </div>
@@ -74,7 +74,7 @@ export default function Header() {
 
         <nav className="header__nav" aria-label="Primary">
           {NAV_LINKS.map((l) => (
-            <Link key={l.id} to={hashLink(l.id)} className={active === l.id ? 'is-active' : undefined}>
+            <Link key={l.id} to={sectionLink(l.id)} className={active === l.id ? 'is-active' : undefined}>
               {l.label}
             </Link>
           ))}
@@ -85,7 +85,7 @@ export default function Header() {
             <Icon name="phone" size={18} />
             <span>{CONTACT.phone}</span>
           </a>
-          <Link to={hashLink('quote')} className="btn btn--primary btn--sm header__cta">
+          <Link to={sectionLink('quote')} className="btn btn--primary btn--sm header__cta">
             Get a Quote
           </Link>
           <button
@@ -108,7 +108,7 @@ export default function Header() {
           <ul>
             {NAV_LINKS.map((l, i) => (
               <li key={l.id} style={{ '--i': i }}>
-                <Link to={hashLink(l.id)} onClick={close} className={active === l.id ? 'is-active' : undefined}>
+                <Link to={sectionLink(l.id)} onClick={close} className={active === l.id ? 'is-active' : undefined}>
                   <span className="sheet__num">{String(i + 1).padStart(2, '0')}</span>
                   {l.label}
                 </Link>
@@ -116,10 +116,10 @@ export default function Header() {
             ))}
           </ul>
           <div className="sheet__foot" style={{ '--i': NAV_LINKS.length }}>
-            <Link to={hashLink('quote')} onClick={close} className="btn btn--primary btn--lg btn--block">
+            <Link to={sectionLink('quote')} onClick={close} className="btn btn--primary btn--lg btn--block">
               Get a Quote <Icon name="arrow" size={18} />
             </Link>
-            <Link to={hashLink('apply')} onClick={close} className="btn btn--ghost btn--lg btn--block">
+            <Link to={sectionLink('apply')} onClick={close} className="btn btn--ghost btn--lg btn--block">
               Apply as a Driver
             </Link>
             <a href={`tel:${CONTACT.phoneHref}`} className="sheet__call">

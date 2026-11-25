@@ -594,9 +594,8 @@ body.menu-open .mobile-bar {
 }
 
 /* ---------- legal pages ---------- */
-.legal {
-  padding-top: calc(var(--header-h) + 56px);
-  min-height: 70vh;
+.legal__inner > div:first-child h2 {
+  margin-top: 0;
 }
 .legal__inner {
   max-width: 760px;

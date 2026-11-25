@@ -8,6 +8,9 @@
 // ---------------------------------------------------------------------------
 
 
+// Live address of the site (the bare domain redirects to www).
+export const SITE_URL = 'https://www.msatransportinc.com'
+
 export const CONTACT = {
   phone: '(267) 251-7878',
   phoneHref: '+12672517878',
@@ -70,13 +73,36 @@ export const NAV_LINKS = [
 ]
 
 // Photography. Real MSA photos live in public/images/. Anything set to `null` is skipped.
+// Which page each section lives on. Links are built with sectionLink(id), so a
+// section can move to another page by changing this map only.
+const SECTION_PAGE = {
+  about: '/about',
+  team: '/about',
+  trucks: '/about',
+  safety: '/safety',
+  brokers: '/brokers',
+  partner: '/brokers',
+  drivers: '/drivers',
+  apply: '/drivers',
+}
+// Sections that open their page at the top.
+const PAGE_TOP = ['about', 'safety', 'brokers', 'drivers']
+
+export const sectionPage = (id) => SECTION_PAGE[id] ?? '/'
+export const sectionLink = (id) => ({
+  pathname: sectionPage(id),
+  hash: PAGE_TOP.includes(id) ? '' : `#${id}`,
+})
+
 export const IMAGES = {
-  truckCutout: '/images/truck-blue.webp', // hero cut-out (Peterbilt), background removed
+  hero: '/images/hero-042.webp', // unit 042, cropped from own-042
+  heroSmall: '/images/hero-042-sm.webp',
+  cab042: '/images/cab-042.webp', // unit 042 cab and door lettering
   og: '/images/og-image.jpg',
   seasons: '/images/seasons.webp', // 4-season panorama (illustrative)
   // Company trucks — native resolution, plus a 480px version for phones.
-  own042: '/images/own-042.webp',
-  own042Small: '/images/own-042-480.webp',
+  own042: '/images/unit-042.webp',
+  own042Small: '/images/unit-042-480.webp',
   own035: '/images/own-035.webp',
   own035Small: '/images/own-035-480.webp',
   safetyTruck: '/images/safety-truck.webp', // unit 035 for the inspection scanner
@@ -84,9 +110,6 @@ export const IMAGES = {
   trailerDry: '/images/trailer-dry.webp',
   trailerReefer: '/images/trailer-reefer.webp',
   tractorVolvo: '/images/tractor-volvo.webp',
-  // Optional full-bleed hero photo. Drop a file in public/images/ (e.g. '/images/hero-bg.webp')
-  // and set the path here — the hero blends it under the headline automatically.
-  heroBg: null,
 }
 
 // Background video for the "Delivering Excellence. Driving Trust." band.

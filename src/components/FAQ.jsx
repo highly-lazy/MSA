@@ -9,8 +9,9 @@ const TABS = [
   ['drivers', 'Drivers'],
 ]
 
-export default function FAQ() {
-  const [tab, setTab] = useState('shippers')
+// `audience` picks the tab that opens first.
+export default function FAQ({ audience = 'shippers' }) {
+  const [tab, setTab] = useState(audience)
   const [open, setOpen] = useState(0)
   const items = DATA[tab]
 

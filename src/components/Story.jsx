@@ -1,31 +1,8 @@
 import { Link } from 'react-router-dom'
-import { CONTACT, IMAGES, STATS } from '../data/company'
-import useInView from '../hooks/useInView'
-import useCountUp from '../hooks/useCountUp'
+import { CONTACT, IMAGES } from '../data/company'
+import Stats from './Stats'
 import Reveal from './Reveal'
 import Icon from './Icon'
-
-// Only verified figures are shown; a stat with `value: null` stays hidden until it is filled in.
-const VISIBLE_STATS = STATS.filter((s) => s.value != null)
-
-function Stat({ stat, index }) {
-  const [ref, inView] = useInView({ threshold: 0.4 })
-  const n = useCountUp(stat.value, inView)
-  const placeholder = stat.value == null
-  return (
-    <div
-      ref={ref}
-      className={`stat${placeholder ? ' is-placeholder' : ''}${inView ? ' is-in' : ''}`}
-      style={{ '--d': `${index * 90}ms` }}
-    >
-      <strong className="stat__value" aria-label={placeholder ? `${stat.label}: figure to be added` : undefined}>
-        {placeholder ? `XX${stat.suffix}` : `${n}${stat.suffix}`}
-      </strong>
-      <span className="stat__label">{stat.label}</span>
-      <span className="stat__note">{stat.note}</span>
-    </div>
-  )
-}
 
 export default function Story() {
   return (
@@ -78,12 +55,10 @@ export default function Story() {
         <Reveal className="story__visual" variant="scale" delay={120}>
           <div className="story__frame">
             <img
-              src={IMAGES.own042}
-              srcSet={`${IMAGES.own042Small} 480w, ${IMAGES.own042} 806w`}
-              sizes="(max-width: 900px) 92vw, 560px"
+              src={IMAGES.cab042}
               alt="MSA Transportation Unit 042 with the driver waving from the cab"
-              width="806"
-              height="1027"
+              width="1000"
+              height="1052"
               loading="lazy"
               decoding="async"
             />
@@ -99,13 +74,7 @@ export default function Story() {
       </div>
 
       <div className="container">
-        <div className="stats" role="list" style={{ '--n': VISIBLE_STATS.length }}>
-          {VISIBLE_STATS.map((s, i) => (
-            <div role="listitem" key={s.id} className="stats__cell">
-              <Stat stat={s} index={i} />
-            </div>
-          ))}
-        </div>
+        <Stats />
       </div>
     </section>
   )

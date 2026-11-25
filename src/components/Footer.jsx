@@ -1,10 +1,8 @@
 import { Link } from 'react-router-dom'
-import { CONTACT, NAV_LINKS, SOCIAL, mailto } from '../data/company'
+import { CONTACT, NAV_LINKS, SOCIAL, mailto, sectionLink } from '../data/company'
 import { SERVICES } from '../data/operations'
 import Logo from './Logo'
 import Icon from './Icon'
-
-const hashLink = (id) => ({ pathname: '/', hash: `#${id}` })
 
 export default function Footer() {
   return (
@@ -17,10 +15,10 @@ export default function Footer() {
             <span className="display__accent">freight.</span>
           </h2>
           <div className="footer__cta-actions">
-            <Link to={hashLink('quote')} className="btn btn--primary btn--lg">
+            <Link to={sectionLink('quote')} className="btn btn--primary btn--lg">
               Get a quote <Icon name="arrow" size={18} />
             </Link>
-            <Link to={hashLink('apply')} className="btn btn--ghost btn--lg">
+            <Link to={sectionLink('apply')} className="btn btn--ghost btn--lg">
               Apply as a driver
             </Link>
             <a href={mailto()} className="footer__cta-mail">{CONTACT.email}</a>
@@ -56,7 +54,7 @@ export default function Footer() {
           <h3>Navigate</h3>
           <ul>
             {NAV_LINKS.map((l) => (
-              <li key={l.id}><Link to={hashLink(l.id)}>{l.label}</Link></li>
+              <li key={l.id}><Link to={sectionLink(l.id)}>{l.label}</Link></li>
             ))}
           </ul>
         </nav>
@@ -65,7 +63,7 @@ export default function Footer() {
           <h3>Services</h3>
           <ul>
             {SERVICES.map((s) => (
-              <li key={s.id}><Link to={hashLink('services')}>{s.title}</Link></li>
+              <li key={s.id}><Link to={sectionLink('services')}>{s.title}</Link></li>
             ))}
           </ul>
         </div>
@@ -73,9 +71,9 @@ export default function Footer() {
         <div>
           <h3>Driver resources</h3>
           <ul>
-            <li><Link to={hashLink('apply')}>Apply now</Link></li>
-            <li><Link to={hashLink('drivers')}>Requirements</Link></li>
-            <li><Link to={hashLink('faq')}>Driver FAQ</Link></li>
+            <li><Link to={sectionLink('apply')}>Apply now</Link></li>
+            <li><Link to={sectionLink('drivers')}>Requirements</Link></li>
+            <li><Link to={{ pathname: '/drivers', hash: '#faq' }}>Driver FAQ</Link></li>
             <li><a href={mailto({ to: CONTACT.recruiting, subject: 'Driver inquiry' })}>Contact recruiting</a></li>
           </ul>
         </div>
