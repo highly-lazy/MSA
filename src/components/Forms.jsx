@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { CONTACT } from '../data/company'
+import { CONTACT, mailto } from '../data/company'
+import { EQUIPMENT } from '../data/operations'
 import submitForm from '../lib/submitForm'
 import Icon from './Icon'
 
@@ -22,7 +23,8 @@ function useForm(initial, { subject, to, format }) {
   return { values, setValues, set, status, onSubmit }
 }
 
-function Result({ status, values, kind, phone }) {
+function Result({ status, values, kind }) {
+  const to = kind === 'quote' ? CONTACT.email : CONTACT.recruiting
   const name = values.name ? `, ${values.name.split(' ')[0]}` : ''
   return (
     <div className="form__result" role="status">
@@ -40,13 +42,20 @@ function Result({ status, values, kind, phone }) {
         <>
           <h3>One last step{name}.</h3>
           <p>
-            Your email app should have opened with the details ready to send — just hit send.
-            Prefer to talk? Call <a href={`tel:${phone.href}`}>{phone.label}</a>.
+            Your email app should have opened with the details filled in. Press send and they reach us.
+            If nothing opened, email <a href={mailto({ to })}>{to}</a> or
+            call <a href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a>.
           </p>
         </>
       )}
     </div>
   )
+}
+
+// Local calendar date (toISOString would be off by a day in the evening, US time).
+const today = () => {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
 const Field = ({ label, children }) => (
@@ -58,13 +67,14 @@ const Field = ({ label, children }) => (
 
 export function QuoteForm() {
   const { values, setValues, set, status, onSubmit } = useForm(
-    { name: '', company: '', phone: '', email: '', origin: '', destination: '', equipment: 'Dry van', freight: '', date: '' },
+    { name: '', company: '', phone: '', email: '', origin: '', destination: '', role: 'Shipper', equipment: 'Dry van', temp: '', freight: '', date: '' },
     {
       subject: (v) => `Quote request — ${v.origin || 'lane'} to ${v.destination || ''}`.trim(),
       to: CONTACT.email,
       format: (v) => ({
-        Name: v.name, Company: v.company, Phone: v.phone, Email: v.email,
-        Pickup: v.origin, Delivery: v.destination, Equipment: v.equipment, Freight: v.freight, 'Pickup date': v.date,
+        Name: v.name, Company: v.company, 'I am a': v.role, Phone: v.phone, Email: v.email,
+        Pickup: v.origin, Delivery: v.destination, Equipment: v.equipment,
+        'Temperature (°F)': v.equipment === 'Reefer' ? v.temp : '', 'Freight & weight': v.freight, 'Pickup date': v.date,
       }),
     },
   )
@@ -77,13 +87,13 @@ export function QuoteForm() {
   }, [setValues])
 
   if (status === 'sent' || status === 'mailto') {
-    return <div className="form-card"><Result status={status} values={values} kind="quote" phone={{ href: CONTACT.phoneHref, label: CONTACT.phone }} /></div>
+    return <div className="form-card"><Result status={status} values={values} kind="quote" /></div>
   }
 
   return (
     <form className="form-card" onSubmit={onSubmit} id="quote-form">
       <h3>Request a quote</h3>
-      <p className="form-card__lede">Tell us the lane and the load. We&rsquo;ll come back with pricing.</p>
+      <p className="form-card__lede">Tell us the lane and the load. Dispatch comes back with pricing, usually the same business day.</p>
       <div className="form-row">
         <Field label="Full name"><input required autoComplete="name" value={values.name} onChange={set('name')} placeholder="Jane Doe" /></Field>
         <Field label="Company"><input autoComplete="organization" value={values.company} onChange={set('company')} placeholder="Company name" /></Field>
@@ -99,17 +109,25 @@ export function QuoteForm() {
       <div className="form-row">
         <Field label="Equipment">
           <select value={values.equipment} onChange={set('equipment')}>
-            <option>Dry van</option>
-            <option>Reefer</option>
-            <option>Power only</option>
-            <option>Dedicated lane</option>
-            <option>Not sure yet</option>
+            {EQUIPMENT.map((o) => <option key={o}>{o}</option>)}
           </select>
         </Field>
-        <Field label="Pickup date"><input type="date" value={values.date} onChange={set('date')} /></Field>
+        <Field label="Pickup date"><input type="date" min={today()} value={values.date} onChange={set('date')} /></Field>
       </div>
-      <Field label="Freight & weight"><input value={values.freight} onChange={set('freight')} placeholder="e.g. 22 pallets, 30,000 lbs" /></Field>
-      {status === 'error' && <p className="form__error" role="alert">Something went wrong sending that. Please call {CONTACT.phone}.</p>}
+      {values.equipment === 'Reefer' && (
+        <Field label="Temperature (°F)"><input value={values.temp} onChange={set('temp')} placeholder="e.g. 34, continuous" /></Field>
+      )}
+      <div className="form-row">
+        <Field label="Freight & weight"><input value={values.freight} onChange={set('freight')} placeholder="22 pallets, 30,000 lbs" /></Field>
+        <Field label="I'm a">
+          <select value={values.role} onChange={set('role')}>
+            <option>Shipper</option>
+            <option>Freight broker</option>
+            <option>Other</option>
+          </select>
+        </Field>
+      </div>
+      {status === 'error' && <p className="form__error" role="alert">That didn&rsquo;t send. Please call {CONTACT.phone} or email {CONTACT.email}.</p>}
       <button type="submit" className="btn btn--primary btn--lg btn--block" disabled={status === 'sending'}>
         {status === 'sending' ? 'Sending…' : 'Request a quote'} <Icon name="arrow" size={18} />
       </button>
@@ -128,7 +146,7 @@ export function ApplicationForm() {
   )
 
   if (status === 'sent' || status === 'mailto') {
-    return <div className="form-card form-card--dark"><Result status={status} values={values} kind="apply" phone={{ href: CONTACT.phoneHref, label: CONTACT.phone }} /></div>
+    return <div className="form-card form-card--dark"><Result status={status} values={values} kind="apply" /></div>
   }
 
   return (
@@ -149,7 +167,7 @@ export function ApplicationForm() {
       <Field label="CDL class & experience">
         <textarea rows="3" value={values.experience} onChange={set('experience')} placeholder="Class A, 3 years OTR…" />
       </Field>
-      {status === 'error' && <p className="form__error" role="alert">Something went wrong sending that. Please call {CONTACT.phone}.</p>}
+      {status === 'error' && <p className="form__error" role="alert">That didn&rsquo;t send. Please call {CONTACT.phone} or email {CONTACT.email}.</p>}
       <button type="submit" className="btn btn--primary btn--lg btn--block" disabled={status === 'sending'}>
         {status === 'sending' ? 'Sending…' : 'Submit application'} <Icon name="arrow" size={18} />
       </button>

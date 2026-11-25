@@ -1,3 +1,4 @@
+import { CONTACT, mailto } from '../data/company'
 import { DRIVER_INFO, DRIVER_REQUIREMENTS } from '../data/operations'
 import { ApplicationForm } from './Forms'
 import Reveal from './Reveal'
@@ -25,6 +26,10 @@ export default function Recruit() {
             <a href="#apply-form" className="btn btn--primary btn--lg">
               Apply now <Icon name="arrow" size={18} />
             </a>
+            <p className="recruit__contact">
+              Rather talk first? Call <a href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a> or email{' '}
+              <a href={mailto({ to: CONTACT.recruiting, subject: 'Driver inquiry' })}>{CONTACT.recruiting}</a>.
+            </p>
           </Reveal>
 
           <Reveal delay={120} className="recruit__reqs">

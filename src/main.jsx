@@ -8,6 +8,7 @@ import './styles/sections-2.css'
 import './styles/conversion.css'
 import './styles/extras.css'
 import './styles/motion.css'
+import './styles/marketing.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(

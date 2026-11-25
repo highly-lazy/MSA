@@ -7,6 +7,7 @@ import Reveal from './Reveal'
 import Art from './Art'
 import Icon from './Icon'
 import useDragScroll from '../hooks/useDragScroll'
+import prefillQuote from '../lib/prefillQuote'
 
 export default function Services() {
   const [active, setActive] = useState(0)
@@ -70,8 +71,8 @@ export default function Services() {
                 <Icon name="check" size={18} strokeWidth={2.4} />
                 {s.benefit}
               </p>
-              <Link to={{ pathname: '/', hash: '#quote' }} className="btn btn--primary">
-                Get a quote
+              <Link to={{ pathname: '/', hash: '#quote' }} className="btn btn--primary" onClick={() => prefillQuote({ equipment: s.equipment })}>
+                Quote {s.equipment}
                 <Icon name="arrow" size={18} />
               </Link>
             </div>

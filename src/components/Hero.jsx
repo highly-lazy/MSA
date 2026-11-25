@@ -74,17 +74,17 @@ export default function Hero() {
           </h1>
 
           <p className="hero__lede">
-            Professional transportation solutions powered by experienced drivers, modern
-            equipment, and a team committed to delivering every load safely and on time.
+            Asset-based truckload carrier running dry van, reefer and power only across the
+            48 states. Experienced drivers, maintained equipment and dispatchers who pick up.
           </p>
 
           <div className="hero__ctas">
             <Link to={hashLink('quote')} className="btn btn--primary btn--lg">
               Get a Quote <Icon name="arrow" size={18} />
             </Link>
-            <Link to={hashLink('services')} className="btn btn--ghost btn--lg">
-              Our Services
-            </Link>
+            <a href={`tel:${CONTACT.phoneHref}`} className="btn btn--ghost btn--lg">
+              <Icon name="phone" size={18} /> {CONTACT.phone}
+            </a>
           </div>
 
           <ul className="hero__chips" aria-label="Company credentials">
@@ -123,10 +123,6 @@ export default function Hero() {
         </div>
       </div>
 
-      <a href="#trust" className="hero__scroll" aria-label="Scroll to next section">
-        <span>Scroll</span>
-        <i />
-      </a>
     </section>
   )
 }

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { CONTACT, NAV_LINKS, SOCIAL } from '../data/company'
+import { CONTACT, NAV_LINKS, SOCIAL, mailto } from '../data/company'
 import { SERVICES } from '../data/operations'
 import Logo from './Logo'
 import Icon from './Icon'
@@ -9,6 +9,7 @@ const hashLink = (id) => ({ pathname: '/', hash: `#${id}` })
 export default function Footer() {
   return (
     <footer className="footer">
+      <div className="tape" aria-hidden="true" />
       <div className="footer__cta">
         <div className="container footer__cta-inner">
           <h2>
@@ -22,6 +23,7 @@ export default function Footer() {
             <Link to={hashLink('apply')} className="btn btn--ghost btn--lg">
               Apply as a driver
             </Link>
+            <a href={mailto()} className="footer__cta-mail">{CONTACT.email}</a>
           </div>
         </div>
       </div>
@@ -74,7 +76,7 @@ export default function Footer() {
             <li><Link to={hashLink('apply')}>Apply now</Link></li>
             <li><Link to={hashLink('drivers')}>Requirements</Link></li>
             <li><Link to={hashLink('faq')}>Driver FAQ</Link></li>
-            <li><a href={`mailto:${CONTACT.recruiting}`}>Contact recruiting</a></li>
+            <li><a href={mailto({ to: CONTACT.recruiting, subject: 'Driver inquiry' })}>Contact recruiting</a></li>
           </ul>
         </div>
 
@@ -82,7 +84,7 @@ export default function Footer() {
           <h3>Contact</h3>
           <ul>
             <li><a href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a></li>
-            <li><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></li>
+            <li><a href={mailto()}>{CONTACT.email}</a></li>
             <li>
               <a href={CONTACT.mapDirectionsUrl} target="_blank" rel="noreferrer">
                 {CONTACT.street}<br />{CONTACT.city}, {CONTACT.state} {CONTACT.zip}

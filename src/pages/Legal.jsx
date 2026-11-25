@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { CONTACT } from '../data/company'
 
@@ -28,6 +29,14 @@ const DOCS = {
 
 export default function Legal({ doc }) {
   const d = DOCS[doc]
+  useEffect(() => {
+    const prev = document.title
+    document.title = `${d.title} | MSA Transportation Inc`
+    return () => {
+      document.title = prev
+    }
+  }, [d.title])
+
   return (
     <section className="legal section section--light">
       <div className="container legal__inner">

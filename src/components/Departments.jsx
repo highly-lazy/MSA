@@ -10,7 +10,7 @@ export default function Departments() {
   const [open, setOpen] = useState(0)
 
   return (
-    <section className="section section--dark depts" id="team" data-nav="team" aria-labelledby="depts-title">
+    <section className="section section--dark depts" id="team" aria-labelledby="depts-title">
       <div className="container">
         <SectionHead
           id="depts-title"

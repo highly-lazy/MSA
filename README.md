@@ -12,10 +12,10 @@ npm run build      # production build → dist/
 npm run preview    # serve the build locally
 ```
 
-Visitor journey (top to bottom): **WOW** hero → **TRUST** credentials →
-**EXPERIENCE** story & stats → **PEOPLE** our trucks → **SAFETY** → **SERVICES** →
-fleet → **PROCESS** → departments → coverage map → **PROOF** customer
-promises → driver recruiting → FAQ → quote / contact → footer.
+Visitor journey (top to bottom): hero + rate bar → credentials → audience paths
+(shipper / broker / driver) → services → fleet → process → departments → coverage map →
+story & stats → our trucks → safety → customer promises → carrier packet (broker setup) →
+highway band → driver recruiting → FAQ → quote / contact → footer.
 
 ## Replace placeholders with real data
 
@@ -25,8 +25,9 @@ you fill it in.
 
 | What | File | Notes |
 | --- | --- | --- |
-| Phone, emails, address, MC/DOT, social links | `src/data/company.js` (`CONTACT`, `SOCIAL`) | The two emails are placeholders — use real inboxes. Social icons only render for URLs you add. |
+| Phone, emails, address, MC/DOT, social links | `src/data/company.js` (`CONTACT`, `SOCIAL`) | All mail goes to info@msatransport.com; `email` and `recruiting` can be split. Social icons only render for URLs you add. |
 | Stats (drivers, miles, loads) | `src/data/company.js` (`STATS`) | Set `value` from `null` to a number; counters animate automatically. Years / fleet size / states are already set from verified data. |
+| Audience cards, carrier packet documents | `src/data/operations.js` (`AUDIENCES`, `PACKET_DOCS`) | Packet documents are sent by email on request — list only what MSA actually provides. |
 | Departments | `src/data/people.js` (`DEPARTMENTS`) | Delete any department MSA does not actually staff. |
 | Testimonials | `src/data/operations.js` (`TESTIMONIALS`) | Marked "Placeholder" until you set `placeholder: false`. |
 | Driver pay / home time / benefits | `src/data/operations.js` (`DRIVER_INFO`) | Items with `todo` show a dashed placeholder. |
@@ -78,8 +79,8 @@ serve `index.html` for unknown URLs — `_redirects` (Netlify), `.htaccess`
 (Apache) and `vercel.json` (Vercel) are already included. The old `/services`,
 `/careers` and `/contact` URLs redirect to the matching section of the home page.
 
-Before launch, check the domain in `index.html` (canonical / Open Graph URLs) — it assumes
-`msa-transportation.com`.
+Before launch, check the domain in `index.html` (canonical / Open Graph URLs), `public/robots.txt` and
+`public/sitemap.xml` — they assume `https://msatransport.com` (the company email domain).
 `/privacy` and `/terms` are draft copy in `src/pages/Legal.jsx` — have counsel review.
 
 ## Structure
@@ -88,5 +89,5 @@ Before launch, check the domain in `index.html` (canonical / Open Graph URLs) �
 - `src/components/` — one component per section (Hero, Story, Drivers, Safety,
   Services, Fleet, Process, Departments, Coverage, Partner, Recruit,
   FAQ, Quote, Footer) plus Header, HelpWidget, MobileBar, Reveal, Icon, Art
-- `src/styles/` — `base.css` (tokens, buttons, header), `hero.css`, `sections*.css`, `conversion.css`
+- `src/styles/` — `base.css` (tokens, buttons, header), `hero.css`, `sections*.css`, `conversion.css`, `marketing.css` (top bar, paths, carrier packet)
 - `public/us-states-map.svg` — public-domain state map used by the coverage section

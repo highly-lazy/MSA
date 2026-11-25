@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { CONTACT, NAV_LINKS } from '../data/company'
+import { CONTACT, NAV_LINKS, mailto } from '../data/company'
 import Logo from './Logo'
 import Icon from './Icon'
 
@@ -52,6 +52,17 @@ export default function Header() {
 
   return (
     <header className={`header${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}`}>
+      <div className="topbar">
+        <div className="container topbar__inner">
+          <p>{CONTACT.dot} · {CONTACT.mc}</p>
+          <ul>
+            <li><a href={mailto()}><Icon name="mail" size={15} /> {CONTACT.email}</a></li>
+            <li><a href={CONTACT.mapDirectionsUrl} target="_blank" rel="noreferrer"><Icon name="pin" size={15} /> Jamison, PA</a></li>
+            <li><Link to={hashLink('apply')} className="topbar__hire">Now hiring CDL-A drivers</Link></li>
+          </ul>
+        </div>
+      </div>
+
       <div className="container header__bar">
         <Link to="/" className="brand" onClick={close} aria-label="MSA Transportation Inc — home">
           <Logo size={44} />
@@ -116,6 +127,13 @@ export default function Header() {
               <span>
                 <small>Call dispatch</small>
                 {CONTACT.phone}
+              </span>
+            </a>
+            <a href={mailto()} className="sheet__call sheet__mail">
+              <Icon name="mail" size={20} />
+              <span>
+                <small>Email us</small>
+                {CONTACT.email}
               </span>
             </a>
             <p className="sheet__auth">{CONTACT.dot} · {CONTACT.mc}</p>

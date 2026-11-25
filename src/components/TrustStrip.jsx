@@ -18,6 +18,7 @@ const ITEMS = [
 export default function TrustStrip() {
   return (
     <section id="trust" className="strip" aria-label="Company credentials">
+      <div className="tape" aria-hidden="true" />
       <div className="strip__track">
         {[0, 1].map((n) => (
           <ul key={n} className="strip__row" aria-hidden={n === 1}>

@@ -1,4 +1,4 @@
-import { CONTACT } from '../data/company'
+import { CONTACT, mailto } from '../data/company'
 import { QuoteForm } from './Forms'
 import Reveal from './Reveal'
 import Icon from './Icon'
@@ -34,7 +34,7 @@ export default function Quote() {
               </li>
               <li>
                 <Icon name="mail" size={20} />
-                <span><small>Email</small><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></span>
+                <span><small>Email</small><a href={mailto({ subject: 'Freight inquiry' })}>{CONTACT.email}</a></span>
               </li>
               <li>
                 <Icon name="pin" size={20} />

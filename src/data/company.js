@@ -11,9 +11,10 @@
 export const CONTACT = {
   phone: '(267) 251-7878',
   phoneHref: '+12672517878',
-  // TODO: placeholder inboxes — swap for real business mailboxes before launch.
-  email: 'dispatch@msatransportationinc.com',
-  recruiting: 'careers@msatransportationinc.com',
+  legalName: 'MSA Transportation Inc',
+  // One shared inbox for dispatch, quotes and recruiting. Split them here if separate mailboxes are added.
+  email: 'info@msatransport.com',
+  recruiting: 'info@msatransport.com',
   address: '2004 Carmel Dr, Jamison, PA 18929',
   street: '2004 Carmel Dr',
   city: 'Jamison',
@@ -22,7 +23,17 @@ export const CONTACT = {
   mc: 'MC-1153963',
   dot: 'USDOT 3498597',
   founded: 2020,
+  // Public FMCSA record, so brokers can verify the authority in one click.
+  saferUrl: 'https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&query_string=3498597',
   mapDirectionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=2004+Carmel+Dr,+Jamison,+PA+18929',
+}
+
+// Pre-addressed email link. `body` is an array of lines.
+export function mailto({ to = CONTACT.email, subject = '', body = [] } = {}) {
+  const q = []
+  if (subject) q.push(`subject=${encodeURIComponent(subject)}`)
+  if (body.length) q.push(`body=${encodeURIComponent(body.join('\r\n'))}`)
+  return `mailto:${to}${q.length ? `?${q.join('&')}` : ''}`
 }
 
 // Add real profile URLs here; the footer only renders networks that have one.
@@ -41,7 +52,7 @@ export const STATS = [
     label: 'Years on the road',
     note: `Operating since ${CONTACT.founded}`,
   },
-  { id: 'units', value: 40, suffix: '+', label: 'Tractors & trailers', note: 'Confirmed fleet size' }, // VERIFIED
+  { id: 'units', value: 40, suffix: '+', label: 'Tractors & trailers', note: 'Company-wide fleet' }, // VERIFIED
   { id: 'states', value: 48, suffix: '', label: 'States served', note: 'Contiguous U.S.' }, // VERIFIED (see COVERAGE)
   { id: 'drivers', value: null, suffix: '+', label: 'Professional drivers', note: 'Add headcount' }, // PLACEHOLDER
   { id: 'miles', value: null, suffix: 'K+', label: 'Miles covered', note: 'Add total miles (thousands)' }, // PLACEHOLDER
@@ -49,11 +60,11 @@ export const STATS = [
 ]
 
 export const NAV_LINKS = [
-  { label: 'About', id: 'about' },
   { label: 'Services', id: 'services' },
   { label: 'Fleet', id: 'fleet' },
+  { label: 'About', id: 'about' },
   { label: 'Safety', id: 'safety' },
-  { label: 'Team', id: 'team' },
+  { label: 'Brokers', id: 'brokers' },
   { label: 'Drivers', id: 'drivers' },
   { label: 'Contact', id: 'contact' },
 ]

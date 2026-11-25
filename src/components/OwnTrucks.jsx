@@ -24,7 +24,7 @@ export default function OwnTrucks() {
   const close = () => setOpen(null)
 
   return (
-    <section className="section section--dark trucks" id="trucks" data-nav="fleet" aria-labelledby="trucks-title">
+    <section className="section section--dark trucks" id="trucks" data-nav="about" aria-labelledby="trucks-title">
       <div className="container">
         <SectionHead
           id="trucks-title"

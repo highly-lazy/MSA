@@ -3,9 +3,48 @@
 // (dry van, reefer, power only, dedicated lanes, interstate truckload) are listed.
 // Placeholders are marked `null` or written as "[Add …]".
 
+// Equipment choices shared by the quick-quote bar and the full quote form.
+export const EQUIPMENT = ['Dry van', 'Reefer', 'Power only', 'Dedicated lane', 'OTR truckload', 'Not sure yet']
+
+// "Which one are you?" cards under the hero.
+export const AUDIENCES = [
+  {
+    id: 'shippers',
+    icon: 'box',
+    kicker: 'I ship freight',
+    title: 'Shippers',
+    copy: 'Put your freight with the carrier that runs it, and keep one phone number from pickup to proof of delivery.',
+    points: ["53' dry van and reefer truckload", 'Dedicated capacity on repeating lanes', 'Updates before you have to ask'],
+    cta: { label: 'Get a rate', hash: '#quote' },
+  },
+  {
+    id: 'brokers',
+    icon: 'handshake',
+    kicker: 'I book carriers',
+    title: 'Freight brokers',
+    copy: 'A carrier that answers check calls and keeps paperwork clean. Our authority details are ready to copy.',
+    points: ['Own MC and USDOT, verifiable on FMCSA', 'Dry van, reefer and power only', 'Setup documents by email'],
+    cta: { label: 'Get the carrier packet', hash: '#brokers' },
+  },
+  {
+    id: 'drivers',
+    icon: 'badge',
+    kicker: 'I drive',
+    title: 'Drivers & owner operators',
+    copy: 'Drive MSA equipment or run your own truck under our dispatch, with people who know your load.',
+    points: ['Company driver or owner operator', 'Dry van, reefer and power-only freight', 'A direct line to dispatch'],
+    cta: { label: 'Apply to drive', hash: '#apply' },
+  },
+]
+
+// Documents a broker or shipper normally needs to set up a carrier. Sent by email on request.
+export const PACKET_DOCS = ['W-9', 'Certificate of insurance', 'Operating authority', 'Your carrier agreement, signed']
+
+// `equipment` pre-selects the quote form when a visitor clicks through from a service.
 export const SERVICES = [
   {
     id: 'dry-van',
+    equipment: 'Dry van',
     title: 'Dry Van Freight',
     image: 'trailerDry',
     tagline: 'Clean, dry and secure from dock to dock.',
@@ -14,6 +53,7 @@ export const SERVICES = [
   },
   {
     id: 'reefer',
+    equipment: 'Reefer',
     title: 'Refrigerated (Reefer)',
     image: 'trailerReefer',
     tagline: 'Cold-chain freight, watched the whole way.',
@@ -22,6 +62,7 @@ export const SERVICES = [
   },
   {
     id: 'power-only',
+    equipment: 'Power only',
     title: 'Power Only',
     image: 'tractorVolvo',
     tagline: 'Your trailer. Our tractor and driver.',
@@ -30,6 +71,7 @@ export const SERVICES = [
   },
   {
     id: 'dedicated',
+    equipment: 'Dedicated lane',
     title: 'Dedicated Lanes',
     art: 'lane',
     tagline: 'Same lane. Same standard. Every week.',
@@ -38,6 +80,7 @@ export const SERVICES = [
   },
   {
     id: 'interstate',
+    equipment: 'OTR truckload',
     title: 'OTR / Interstate Truckload',
     art: 'road',
     tagline: 'Full truckload across state lines.',
@@ -199,6 +242,7 @@ export const DRIVER_INFO = [
 export const FAQ = {
   shippers: [
     { q: 'How do I request a quote?', a: 'Use the quote form on this page with your pickup and delivery locations, freight type and target date. Dispatch will follow up with pricing, usually the same business day.' },
+    { q: 'How do I set MSA up as a carrier?', a: 'Email info@msatransport.com with your broker or shipper packet and the documents you need, such as our W-9 and certificate of insurance. You can check our record on FMCSA any time under USDOT 3498597.' },
     { q: 'What kind of freight do you haul?', a: 'Dry van and refrigerated (reefer) truckload freight — palletized or boxed general commodities as well as temperature-controlled loads like produce and dairy. We also take power-only loads: you supply the trailer, we supply the tractor and driver.' },
     { q: 'Do you offer dedicated lanes?', a: 'Yes. If you move freight on a repeating schedule, we can assign a driver and equipment to your lane so pickup and delivery times stay consistent week after week.' },
     { q: 'What areas do you serve?', a: 'We run interstate freight across the 48 contiguous states under our own MC and USDOT authority, dispatched from our Jamison, PA home base.' },

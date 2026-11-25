@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { CONTACT } from '../data/company'
+import { CONTACT, mailto } from '../data/company'
 import Reveal from './Reveal'
 import Icon from './Icon'
 
@@ -19,6 +19,9 @@ export default function InlineCta({ title, text, tone = 'brand' }) {
             </Link>
             <a href={`tel:${CONTACT.phoneHref}`} className="btn btn--outline-dark btn--lg">
               <Icon name="phone" size={18} /> {CONTACT.phone}
+            </a>
+            <a href={mailto({ subject: 'Freight inquiry' })} className="cta-band__mail">
+              <Icon name="mail" size={18} /> {CONTACT.email}
             </a>
           </div>
         </Reveal>

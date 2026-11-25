@@ -1,4 +1,4 @@
-import { CONTACT } from '../data/company'
+import { CONTACT, mailto } from '../data/company'
 
 // Delivers a form submission.
 //
@@ -24,7 +24,6 @@ export default async function submitForm({ subject, to = CONTACT.email, fields }
   const body = Object.entries(fields)
     .filter(([, v]) => v)
     .map(([k, v]) => `${k}: ${v}`)
-    .join('\n')
-  window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  window.location.href = mailto({ to, subject, body })
   return { mode: 'mailto' }
 }
